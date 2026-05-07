@@ -14,6 +14,9 @@
 <title>NewsGuild of Greater Philadelphia — Fair Contract Campaign</title>
 <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="favicon-64.png">
+<link rel="canonical" href="https://inkybflynn.github.io/newsguild-campaign/">
+<meta name="theme-color" content="#0E7C7B">
 <meta name="description" content="Sign the petition. Stand with Philadelphia Inquirer workers fighting for a fair contract through the NewsGuild of Greater Philadelphia.">
 <meta property="og:title" content="Fair Contract Now — NewsGuild of Greater Philadelphia">
 <meta property="og:description" content="Sign the petition. Stand with Philadelphia Inquirer workers fighting for a fair contract.">
@@ -1664,39 +1667,40 @@ footer {
     <div>
       
       <div class="form-box">
-        <div class="form-hdr">Action Network Embed <span style="opacity:0.55;font-weight:400;text-transform:none;letter-spacing:0;">— placeholder</span></div>
+        <div class="form-hdr">Sign the Petition</div>
         <div class="petition-privacy-note">
           Petition signatures are collected and stored by <a href="https://actionnetwork.org/privacy" target="_blank" rel="noopener noreferrer">Action Network</a>. By signing, you agree to their privacy policy. Your email will not be published or shared.
         </div>
+        <form name="petition" onsubmit="return false;">
         <div class="f-row">
           <div class="f-field">
-            <label class="f-label">First Name</label>
-            <input class="f-input" type="text" placeholder="Jane" autocomplete="given-name">
+            <label class="f-label" for="f-first">First Name</label>
+            <input class="f-input" id="f-first" name="first_name" type="text" placeholder="Jane" autocomplete="given-name" required>
           </div>
           <div class="f-field">
-            <label class="f-label">Last Name</label>
-            <input class="f-input" type="text" placeholder="Smith" autocomplete="family-name">
+            <label class="f-label" for="f-last">Last Name</label>
+            <input class="f-input" id="f-last" name="last_name" type="text" placeholder="Smith" autocomplete="family-name" required>
           </div>
         </div>
         <div class="f-field">
-          <label class="f-label">Email Address</label>
-          <input class="f-input" type="email" placeholder="jane@example.com" autocomplete="email">
+          <label class="f-label" for="f-email">Email Address</label>
+          <input class="f-input" id="f-email" name="email" type="email" placeholder="jane@example.com" autocomplete="email" required>
         </div>
         <div class="f-field">
-          <label class="f-label">Role / Title <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
-          <input class="f-input" type="text" placeholder="Reader, subscriber, supporter...">
+          <label class="f-label" for="f-role">Role / Title <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+          <input class="f-input" id="f-role" name="role" type="text" placeholder="Reader, subscriber, supporter...">
         </div>
         <div class="f-field">
-          <label class="f-label">Your Message <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
-          <textarea class="f-input" placeholder="Leave a message of solidarity..."></textarea>
+          <label class="f-label" for="f-message">Your Message <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+          <textarea class="f-input" id="f-message" name="message" placeholder="Leave a message of solidarity..."></textarea>
         </div>
         <div class="f-consent">
-          <input type="checkbox">
-          <span>I agree that my name and message may be displayed publicly as a supporter of this campaign. My email will not be published.</span>
+          <input type="checkbox" id="f-consent" name="consent" value="yes">
+          <label for="f-consent">I agree that my name and message may be displayed publicly as a supporter of this campaign. My email will not be published.</label>
         </div>
-        <button class="btn-submit" type="button">Sign Our Petition</button>
+        <button class="btn-submit" type="submit">Sign Our Petition</button>
         <p class="form-footnote">Your email will never be shared or published.</p>
-        <div class="an-note">Replace with Action Network embed code</div>
+        </form>
       </div>
     </div>
   </div>
@@ -1877,7 +1881,7 @@ footer {
     <p><strong>California residents</strong> — Under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA), you have the right to know what personal data we collect and how it is used, request deletion of your personal data, opt out of the sale or sharing of personal data (we do not sell or share personal data), and non-discrimination for exercising your rights. To submit a verifiable consumer request, contact us at the email below. We will respond within 45 days.</p>
 
     <h3>Contact</h3>
-    <p>For privacy-related requests or questions, email <a id="privacy-contact-link" href="#"></a>.</p>
+    <p>For privacy-related requests or questions, email <a id="privacy-contact-link" href="#" style="display:none"></a>.</p>
   </div>
 </div>
 
@@ -2005,7 +2009,7 @@ footer {
     var el = document.getElementById('contact-email-link');
     if (el) { el.href = 'mailto:' + addr; el.textContent = addr; }
     var pel = document.getElementById('privacy-contact-link');
-    if (pel) { pel.href = 'mailto:' + addr; pel.textContent = addr; }
+    if (pel) { pel.href = 'mailto:' + addr; pel.textContent = addr; pel.style.display = ''; }
     var prel = document.getElementById('press-email-link');
     if (prel) { prel.href = 'mailto:' + addr + '?subject=Press%20Inquiry%20%E2%80%94%20Interview%20Request'; }
   })();
