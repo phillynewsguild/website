@@ -1984,6 +1984,18 @@ footer {
     if (_view !== 'desktop') setView(_view);
   });
 
+  // Hide floating Sign Now CTA when petition section is in view
+  (function() {
+    var cta = document.querySelector('.floating-cta');
+    var petition = document.getElementById('petition');
+    if (!cta || !petition) return;
+    var observer = new IntersectionObserver(function(entries) {
+      cta.style.opacity = entries[0].isIntersecting ? '0' : '1';
+      cta.style.pointerEvents = entries[0].isIntersecting ? 'none' : 'auto';
+    }, { threshold: 0.1 });
+    observer.observe(petition);
+  })();
+
   // Assemble contact email client-side to prevent scraping
   (function() {
     var u = 'newsguild';
