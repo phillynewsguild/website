@@ -1278,7 +1278,9 @@ footer {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.25);
+  transition: color 0.15s;
 }
+.footer-item:hover { color: rgba(255,255,255,0.7); }
 
 .footer-privacy {
   text-align: center;
@@ -1881,7 +1883,7 @@ footer {
 <footer>
   <div class="footer-main">
     <span class="footer-item">© 2026 NewsGuild of Greater Philadelphia, Local 38010</span>
-    <button class="footer-item" onclick="openPrivacy()" style="background:none;border:none;cursor:pointer;padding:0;">Privacy</button>
+    <button class="footer-item" onclick="openPrivacy()" style="background:none;border:none;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px;transition:color 0.15s;">Privacy</button>
   </div>
   <div class="footer-privacy">
     This is a union organizing campaign. We collect petition signatures solely to support our contract campaign.<br>
