@@ -1381,6 +1381,7 @@ footer {
    VIEWPORT TOGGLE TOOLBAR
 ───────────────────────────────── */
 @media (max-width: 1024px) { #wf-toolbar { display: none; } }
+#wf-toolbar.in-iframe { display: none !important; }
 #wf-toolbar {
   position: fixed;
   bottom: 80px;
@@ -1919,6 +1920,12 @@ footer {
 </div>
 
 <script>
+  // Hide toolbar if running inside the preview iframe
+  if (window !== window.top) {
+    var t = document.getElementById('wf-toolbar');
+    if (t) t.classList.add('in-iframe');
+  }
+
   var _view = 'desktop';
   var _ready = false;
   var shell = document.getElementById('vp-shell');
