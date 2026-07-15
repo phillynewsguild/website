@@ -1,0 +1,1631 @@
+/* Redaction — self-hosted (SIL OFL).
+   Redaction is a GRADED typeface: the number = how halftone-degraded the cut is
+   (0 = clean, 100 = heavily pixelated). We use the CLEAN base cut for both body
+   and display so text stays crisp and legible. The graded cuts (_20 / _35 / _50 /
+   _100) are also self-hosted in /fonts/redaction-web/ so "grit" can be dialed onto
+   headlines later via font-family: 'Redaction Grit XX' if desired. */
+  @font-face {
+    font-family: 'Redaction';
+    src: url('../fonts/redaction-web/Redaction-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Redaction';
+    src: url('../fonts/redaction-web/Redaction-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  /* Display = same clean cut; differentiated by size/weight, not by degradation. */
+  @font-face {
+    font-family: 'Redaction Display';
+    src: url('../fonts/redaction-web/Redaction-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Redaction Display';
+    src: url('../fonts/redaction-web/Redaction-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  /* UI sans = Archivo superfamily (loaded via Google Fonts for now; self-host later).
+     Archivo Narrow → condensed labels/badges/buttons. Archivo → normal-width small
+     UI (form fields, placeholders, opt-in, disclaimers). Both have real weights. */
+
+  /* Optional textured cut for headlines — opt-in only. */
+  @font-face {
+    font-family: 'Redaction Grit';
+    src: url('../fonts/redaction-web/Redaction_20-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Redaction Grit';
+    src: url('../fonts/redaction-web/Redaction_20-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+/* ─────────────────────────────────
+   DESIGN SYSTEM TOKENS
+───────────────────────────────── */
+:root {
+  /* Typography — Redaction (serif) does headlines + body prose. Archivo superfamily
+     does UI: Archivo Narrow for condensed labels, Archivo for normal small UI. */
+  --font-display: 'Redaction Display', 'Redaction', Georgia, serif;   /* headlines / h1 / h2 */
+  --font-serif:   'Redaction', Georgia, serif;                        /* body prose */
+  --font-ui:      'Archivo Narrow', 'Arial Narrow', sans-serif;       /* condensed labels, badges, buttons, eyebrows */
+  --font-sans:    'Archivo', system-ui, -apple-system, sans-serif;    /* normal-width small UI: form fields, disclaimers */
+
+  /* ───────── Palette — 5 colors ─────────
+     Every surface, mark, and interaction state is sourced from these five.
+     Everything else below is derived from them so the system stays honest. */
+  --ink:    #222222;    /* primary text, borders, dark UI */
+  --paper:  #FFFFFF;    /* page bg, reverse text */
+  --bone:   #F1F1F1;    /* light grey section shift — official Inquirer grey (was beige) */
+  --night:  #222222;    /* bold black band (demands, stat sidebar) */
+  --red:    #E11B22;    /* Inquirer Opinion Red — accent + CTA fill + interaction */
+
+  /* Derived states — all computed from the 5 above.
+     These aren't new colors; they're functional aliases so rules stay readable. */
+  --red-deep:  color-mix(in oklab, var(--red), black 20%);          /* CTA hover — deeper red, white text ≥4.5:1 */
+  --muted:      #616161;                                              /* official Inquirer grey — secondary text (5.7:1 on white) */
+  --border:     #DDDDDD;                                              /* official Inquirer grey hairline */
+  --dot:        rgba(34, 34, 34, 0.16);                                /* 16% ink — dot pattern */
+
+  /* Layout */
+  --r:          4px;
+  --max:        1360px;
+  --inner-max:  1100px;   /* shared inner width for every section (unifies the grid) */
+  --prose-max:  680px;    /* narrow prose column, left-aligned within --inner-max */
+  --pad-h:      56px;     /* desktop side padding — bumped from 40 to keep content off the viewport edge in the 1024–1280 range */
+  --gutter:     max(var(--pad-h), calc((100vw - var(--max)) / 2 + var(--pad-h)));   /* right edge of the masthead's container from the viewport edge — keeps the floating CTA lined up with the nav CTA at every width */
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* Dot pattern is applied per-section (not on body) so color shifts between
+   sections read as color shifts, not as lines cutting through the dot grid. */
+body {
+  font-family: var(--font-serif);
+  background-color: var(--paper);
+  color: var(--ink);
+  font-size: 17px;          /* up from 16 — especially kinder on mobile over dots */
+  line-height: 1.65;
+  letter-spacing: -0.01em;  /* Redaction is a wide face — tighten body setting slightly */
+  overflow-x: hidden;
+  font-synthesis: none;     /* never fake bold/italic — all faces ship real weights */
+}
+a {
+  color: inherit;                          /* text color inherits from context — works in light + dark sections */
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--border);    /* quiet underline by default */
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s, text-decoration-thickness 0.15s;
+}
+a:hover {
+  text-decoration-color: var(--red);      /* hover signal stays inside the system — teal underline */
+  text-decoration-thickness: 2px;
+}
+/* Button link-state colors. Explicitly setting :hover / :focus / :active alongside
+   :link / :visited is required — otherwise :visited wins the specificity race on
+   links the user has already clicked, and hover text stays dark gray on the teal
+   fill (≈3.5:1, fails WCAG AA). Keeping all states on white forces full ≥5:1
+   contrast on every hover, focus, and active press. */
+a.btn-primary, a.btn-primary:link, a.btn-primary:visited,
+a.btn-primary:hover, a.btn-primary:focus, a.btn-primary:active { color: var(--paper); text-decoration: none; }
+a.btn-ghost, a.btn-ghost:link, a.btn-ghost:visited { color: var(--ink); text-decoration: none; }
+a.btn-ghost:hover, a.btn-ghost:focus, a.btn-ghost:active { color: var(--paper); text-decoration: none; }
+a.btn-outline-sm, a.btn-outline-sm:link, a.btn-outline-sm:visited { color: var(--ink); text-decoration: none; }
+a.btn-outline-sm:hover, a.btn-outline-sm:focus, a.btn-outline-sm:active { color: var(--paper); text-decoration: none; }
+a.share-btn, a.share-btn:link, a.share-btn:visited { color: rgba(255,255,255,0.7); text-decoration: none; }
+
+/* Visible focus ring for keyboard users (accessibility + security: never rely on
+   hover-only affordances that exclude keyboard / assistive tech users). */
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─────────────────────────────────
+   LAYOUT — all sections ride the same rails.
+   Every section is full-bleed (for the color band); .inner clamps content
+   to --inner-max. This fixes the grid alignment issue Sam flagged.
+───────────────────────────────── */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--pad-h);
+}
+
+section {
+  padding: 80px 0;
+  max-width: 100%;
+  margin: 0;
+}
+
+.inner {
+  max-width: var(--inner-max);
+  margin: 0 auto;
+  padding: 0 var(--pad-h);
+}
+
+/* Dot texture as a reusable mixin class — apply only where we want it. */
+.dots-light {
+  background-image: none;   /* dot-grid texture removed */
+  background-size: 22px 22px;
+}
+.dots-dark {
+  background-image: none;   /* dot-grid texture removed */
+  background-size: 22px 22px;
+}
+
+/* ─────────────────────────────────
+   TYPE SCALE
+   Display headings use Redaction Display (level 50 — texture without noise) at
+   weight 600/700; body prose uses Redaction (level 100 — cleanest cut) at 17px.
+   Body size held at 17/18px so the dot pattern doesn't overwhelm reading,
+   especially on mobile. font-variation-settings calls below are leftover from
+   Fraunces/Newsreader (variable fonts); Redaction is static, so they're harmless
+   no-ops — left in place in case we ever swap back to a variable face.
+───────────────────────────────── */
+.t-display {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  font-variation-settings: "opsz" 120, "SOFT" 30;
+}
+
+.t-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.6vw, 44px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ink);
+  font-variation-settings: "opsz" 72;
+}
+
+.t-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.2vw, 38px);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ink);
+  font-variation-settings: "opsz" 48;
+}
+
+.t-h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.t-body {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.t-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.t-caption {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ─────────────────────────────────
+   BADGE / EYEBROW
+───────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--muted);
+  color: var(--paper);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 8px 11px;
+  border-radius: var(--r);
+  margin-bottom: 2rem;
+}
+
+/* Section kicker — replaces the uniform filled eyebrow pills with a lighter
+   label + short accent rule. De-templatizes the section starts. */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.kicker.on-dark { color: rgba(255,255,255,0.72); }
+.kicker-ico { width: 16px; height: 16px; flex-shrink: 0; color: var(--red); }
+
+/* Inline contact mail icon (sits next to the JS-populated email link). */
+.contact-ico { width: 18px; height: 18px; vertical-align: -3px; color: rgba(255,255,255,0.7); }
+
+/* ─────────────────────────────────
+   BUTTONS
+───────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--red);               /* teal fill */
+  color: var(--paper);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 16px 40px;
+  border-radius: var(--r);
+  border: 2px solid var(--red);         /* teal border matches fill */
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s, border-color 0.18s, transform 0.12s;
+}
+.btn-primary:hover {
+  background: var(--red-deep);          /* deeper teal on hover — 7.3:1 on white */
+  border-color: var(--red-deep);
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 16px 40px;
+  border-radius: var(--r);
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.btn-ghost:hover {
+  background: var(--red);               /* teal hover to match primary family */
+  border-color: var(--red);
+  color: var(--paper);                     /* 5.06:1 contrast — AA for normal text */
+}
+
+.btn-outline-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: var(--r);
+  border: 1.5px solid var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+  min-height: 40px;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.btn-outline-sm:hover {
+  background: var(--red);
+  color: var(--paper);
+  border-color: var(--red);
+}
+
+/* ─────────────────────────────────
+   PRIVACY BANNER
+───────────────────────────────── */
+/* Dismissible notification bar (was the privacy notice; privacy now lives in the
+   footer + modal only). */
+#notice-bar {
+  position: relative;
+  background: var(--night);
+  color: var(--paper);
+  padding: 10px 44px;
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+#notice-bar.is-dismissed { display: none; }
+.notice-bar__msg,
+.notice-bar__msg:link,
+.notice-bar__msg:visited { color: var(--paper); text-decoration: none; }
+.notice-bar__msg strong { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+.notice-bar__msg:hover strong { color: var(--paper); }
+.notice-bar__close {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.65);
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  padding: 8px;
+}
+.notice-bar__close:hover { color: var(--paper); }
+
+/* ─────────────────────────────────
+   FLOATING CTA
+   (Replaces the top nav on this one-pager. Always-available "Sign Now"
+   anchor for users deep in the page.)
+───────────────────────────────── */
+.floating-cta {
+  position: fixed;
+  bottom: 24px;
+  right: var(--gutter);
+  z-index: 100;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--red);               /* teal button — same signal as hero CTA */
+  color: var(--paper);
+  padding: 14px 22px;
+  border-radius: var(--r);               /* squared, institutional (was 999px pill) */
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  transition: background 0.18s, transform 0.12s;
+}
+.floating-cta:hover {
+  background: var(--red-deep);          /* deeper teal on hover */
+  transform: translateY(-1px);
+  color: var(--paper);
+}
+@media (max-width: 600px) {
+  .floating-cta { bottom: 12px; font-size: 12px; padding: 12px 18px; }   /* right stays on var(--gutter), which already re-narrows at this breakpoint */
+}
+
+/* ─────────────────────────────────
+   HERO
+───────────────────────────────── */
+#hero {
+  padding: 64px 0 56px;       /* tightened from 96/88 — pulls hero closer to the page top */
+  position: relative;          /* anchor for the edition stamp */
+  background-color: var(--paper);
+  /* Newsprint grain — inline SVG fractal-noise, self-contained (no asset/CDN). */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.06'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  background-repeat: repeat;
+}
+#hero .inner { text-align: center; }
+
+.hero-headline {
+  font-optical-sizing: auto;
+  font-family: var(--font-display);   /* clean, sharp cut — no grit */
+  font-size: clamp(40px, 6.4vw, 76px);  /* bumped up — per Sam */
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 8px;
+  font-variation-settings: "opsz" 144;
+  /* Prevent the trailing "in." from orphaning to its own line. text-wrap: balance
+     distributes lines evenly across the headline. nbsp glue between "investing"
+     and "in." is the belt-and-suspenders fallback for browsers that don't yet
+     support text-wrap (Firefox < 121, older Safari). pretty kicks in on browsers
+     that support it as a finer-grained orphan guard. */
+  text-wrap: balance;
+  text-wrap: pretty;
+  max-width: 18ch;             /* keeps the headline from sprawling on wide viewports */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-logo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 24px auto;
+  text-align: center;
+}
+
+.hero-logo-wrap img,
+.hero-logo-wrap svg {
+  width: 144px;
+  height: 144px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+.hero-subhead {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 400;
+  line-height: 1.08;
+  color: var(--ink);
+  margin-bottom: 8px;
+  font-variation-settings: "opsz" 120;
+  /* italic removed per Beth — no font-style declared, inherits normal */
+}
+
+/* Directive lead line under the hero subhead (doc copy). */
+.hero-lead {
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 46ch;
+  margin: 4px auto 24px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 auto 24px;
+  /* Belt-and-suspenders centering — the row stays centered even if a media
+     query overrides justify-content somewhere downstream, because the
+     container itself is shrunk to its content and auto-margined. The 480px
+     media re-expands width to 100% so stacked buttons can still stretch. */
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
+}
+
+.hero-count {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 16px;
+}
+
+
+
+/* Constrained prose column — left-aligned to the inner grid so its left edge
+   matches every other section's left edge (fixes pink-line mismatch Sam called out). */
+.prose-col {
+  max-width: var(--prose-max);
+  margin-left: 0;
+  margin-right: auto;
+}
+/* Hero gets a centered version (it's a centered hero composition). */
+#hero .prose-col { margin-left: auto; }
+
+/* ─────────────────────────────────
+   STORY — WHO WE ARE
+   Single-column narrative (Who we are / Where we've been / What's next) paired
+   with a stat card sidebar. Desktop: 2/3 copy + 1/3 stats. ≤1024px: stacks.
+───────────────────────────────── */
+.story-intro-grid {
+  margin-bottom: 0;
+}
+.story-intro-copy {
+  max-width: var(--prose-max);       /* narrow prose on mobile/tablet */
+  margin-bottom: 40px;               /* breathing room before stacked stats below */
+}
+.story-intro-copy > .story-lead {
+  margin-bottom: 48px;               /* intro paragraph flows into first subsection */
+}
+.story-intro-copy .story-subsection {
+  margin-bottom: 48px;
+}
+.story-intro-copy .story-subsection:last-child {
+  margin-bottom: 0;
+}
+
+.story-who {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin: 0;                         /* flow handled by .story-intro-grid */
+  max-width: var(--prose-max);       /* mobile/tablet cap */
+}
+
+/* Desktop: 2/3 copy + 1/3 stat sidebar. */
+@media (min-width: 1025px) {
+  .story-intro-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;  /* per request — 2/3 text, 1/3 boxes */
+    gap: 64px;
+    align-items: start;
+  }
+  .story-intro-copy {
+    max-width: none;                 /* fill the 2/3 column */
+    margin-bottom: 0;
+  }
+  .story-intro-grid .story-who {
+    grid-template-columns: 1fr;      /* stats stack vertically as a sidebar card */
+    max-width: none;
+    position: sticky;
+    top: 32px;                       /* sticks near top as the prose scrolls past */
+  }
+}
+
+.story-who-stat {
+  background: var(--night);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: background 0.2s;
+}
+.story-who-stat:hover { background: color-mix(in oklab, var(--night), var(--paper) 12%); }
+
+.story-stat-num {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 3vw, 40px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--paper);
+  font-variation-settings: "opsz" 60;
+}
+
+.story-stat-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+@media (max-width: 600px) {
+  .story-who { grid-template-columns: 1fr; }
+}
+
+/* ─────────────────────────────────
+   OUR STORY — full-bleed bone background with subtle dots for section transition
+───────────────────────────────── */
+#story {
+  background: var(--bone);
+  background-image: none;   /* dot-grid texture removed */
+  background-size: 22px 22px;
+}
+
+.story-subsection {
+  margin-bottom: 48px;
+}
+
+.story-subsection:last-child {
+  margin-bottom: 0;
+}
+
+.story-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 16px;
+  font-variation-settings: "opsz" 72;
+}
+
+/* ─────────────────────────────────
+   DEMANDS — dark band
+───────────────────────────────── */
+#demands {
+  background: var(--night);
+  background-image: none;   /* dot-grid texture removed */
+  background-size: 22px 22px;
+}
+
+.demands-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.demands-intro-text {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.72);
+  margin-bottom: 24px;
+}
+.demands-intro-text p + p { margin-top: 14px; }
+.demands-intro-text strong { color: var(--paper); font-weight: 700; }
+
+/* Simplified list: no "1." column, no "Demand 1:" prefix. Each item is
+   a strong title + supporting description. */
+.demand-list {
+  list-style: none;
+  margin-top: 0;   /* top-aligns with the left column's kicker/h2, per Beth 2026-07-13 */
+}
+
+.demand-item {
+  padding: 22px 0 22px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  border-left: 3px solid transparent;   /* reserve space so hover doesn't shift layout */
+  padding-left: 0;
+  transition: padding-left 0.2s, border-left-color 0.2s, border-bottom-color 0.2s;
+}
+.demand-item:first-child { border-top: 1px solid rgba(255,255,255,0.12); }
+.demand-item:hover {
+  padding-left: 14px;
+  border-left-color: var(--red);     /* teal rail on hover — a little life */
+  border-bottom-color: var(--red);
+}
+
+.demand-title {
+  font-family: var(--font-ui);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--paper);
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+
+.demand-desc {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.55;
+}
+
+/* demands quote box removed 2026-07-13 — demand list now fills the right column */
+
+/* ─────────────────────────────────
+   TESTIMONIALS — bone band, same inner grid as everything else
+───────────────────────────────── */
+#testimonials {
+  background: var(--bone);
+  background-image: none;   /* dot-grid texture removed */
+  background-size: 22px 22px;
+}
+
+.t-intro {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: end;
+  margin-bottom: 32px;
+}
+
+.t-intro-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.t-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;                 /* real breathing room instead of a 1px seam */
+}
+
+.t-card {
+  background: var(--paper);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 6px;        /* a touch more rounded than global --r for card-like feel */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+  position: relative;
+}
+.t-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.10);
+  border-color: var(--red);
+  z-index: 1;
+}
+
+.t-card.featured {
+  grid-column: span 2;
+  background: var(--paper);
+  border-top: 4px solid var(--red);   /* teal ribbon — marks the featured voice */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+.t-card.featured:hover {
+  border-top-color: var(--red);       /* keep the ribbon on hover */
+  border-color: var(--red);
+}
+
+.t-quote {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--muted);
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.t-card.featured .t-quote {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--ink);
+  font-variation-settings: "opsz" 48;
+}
+
+.t-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.t-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--night), var(--paper) 12%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--paper);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.t-card:hover .t-avatar { background: var(--red); }
+
+.t-name {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.t-role {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+
+.t-more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+/* ─────────────────────────────────
+   PETITION — white band between dark "demands" and bone "voices"
+───────────────────────────────── */
+#petition {
+  background: var(--paper);
+}
+
+.petition-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 80px;
+  align-items: start;
+}
+
+.petition-counter {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
+  margin: 32px 0;
+}
+
+.counter-num {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 6vw, 72px);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--red);            /* teal — the single brightest accent on the page */
+  margin-bottom: 4px;
+  font-variation-settings: "opsz" 60;
+}
+
+.counter-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.progress-track {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 41.5%;   /* no-JS fallback only — js/app.js sets this from SIGNATURE_COUNT/SIGNATURE_GOAL on load */
+  background: var(--red);
+  transition: width 0.4s;
+}
+
+.progress-goals {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.form-box {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--paper);
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.form-hdr {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.form-hdr::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.petition-privacy-note {
+  margin-bottom: 10px;
+  padding: 0;                    /* no field-style box — reads as plain disclaimer text */
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.petition-privacy-note a { color: var(--ink); text-decoration: underline; }
+
+/* ── Action Network petition embed — AN's own field set, no-styles variant.
+      Targets AN's real markup/selectors (verified 2026-07-13 by fetching the
+      widget script), not the original custom field names. ── */
+#can_embed_form_inner h2 {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 4px;
+}
+#can_embed_form_inner h3,
+#can_embed_form_inner h4 {
+  display: none;   /* duplicates our own "Sign the Petition" header + privacy note — removed per Beth 2026-07-13 */
+}
+#new_signature { margin: 0; }
+#new_signature li.form_builder_output { list-style: none; margin: 0; padding: 0; }
+#new_signature li.core_field { list-style: none; margin: 0 0 1rem; }
+#new_signature .control-label { display: none; }   /* AN sends an empty disabled label; placeholder carries the field name */
+#new_signature input[type="text"],
+#new_signature input[type="email"],
+#new_signature select,
+#new_signature textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  font-size: 16px;   /* prevents iOS zoom on focus */
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--bone);
+  color: var(--muted);
+  outline: none;
+}
+#new_signature input:focus,
+#new_signature select:focus,
+#new_signature textarea:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(225,27,34,0.16);
+}
+#new_signature textarea {
+  margin-bottom: 1rem;
+  height: 44px;      /* AN sends rows="20" — collapsed by default, expands on focus below */
+  min-height: 0;
+  resize: none;
+  overflow-y: auto;
+  transition: height 0.2s ease;
+}
+#new_signature textarea:focus { height: 120px; max-height: 300px; resize: vertical; }
+#new_signature .international_link-wrap { display: block; margin: -4px 0 1rem; font-size: 13px; }
+#new_signature .international_link { color: var(--ink); text-decoration: underline; cursor: pointer; }
+#new_signature .country_drop_wrap {
+  display: none;   /* AN ships this pre-hidden via their own "hide" class, which does nothing without their stylesheet — hidden here instead, toggled by js/app.js */
+  margin: -4px 0 1rem;
+}
+#new_signature .country_drop_wrap.is-shown { display: block; }
+#new_signature #d_sharing { margin: 4px 0 1rem; font-family: var(--font-sans); font-size: 13px; color: var(--muted); }
+#new_signature #d_sharing ul { list-style: none; padding: 0; margin: 0; }
+#new_signature #d_sharing label { display: flex; align-items: flex-start; gap: 10px; line-height: 1.6; }
+#new_signature #d_sharing input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; }
+#new_signature input[type="submit"] {
+  width: 100%;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  background: var(--red);
+  color: var(--paper);
+  border: 2px solid var(--red);
+  padding: 16px;
+  border-radius: var(--r);
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.18s, border-color 0.18s;
+}
+#new_signature input[type="submit"]:hover {
+  background: var(--red-deep);
+  border-color: var(--red-deep);
+}
+#new_signature img.ajax-loading { display: block; margin: 8px auto; }
+#action_info {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+#action_info a { color: var(--ink); }
+#logo_wrap { display: none; }   /* AN logo hidden per Beth, 2026-07-13 */
+
+/* ─────────────────────────────────
+   UPDATES — white band
+───────────────────────────────── */
+#updates {
+  background: var(--paper);
+  padding: 80px 0;
+}
+.updates-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.update-card {
+  background: var(--bone);
+  border-radius: 8px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+}
+.update-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.10);
+  border-color: var(--red);
+  z-index: 1;
+}
+.featured-update {
+  border-left: 3px solid var(--red);
+}
+.featured-update:hover {
+  border-left-color: var(--red);
+}
+.update-tag {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.update-headline {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.5vw, 26px);
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.25;
+}
+.update-body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0;
+}
+.update-date {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: auto;
+  padding-top: 8px;
+}
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.leader-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  padding: 16px 8px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+}
+.leader-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.10);
+  border-color: var(--red);
+  background: var(--bone);
+}
+.leader-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--bone);
+  border: 2px solid var(--border);
+}
+.leader-name {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.leader-role {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.press-cta {
+  padding: 40px 48px;
+  background: var(--night);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+.press-cta-label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin: 0;
+}
+.press-cta-headline {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.5vw, 30px);
+  color: var(--paper);
+  margin: 0;
+}
+.press-cta-body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+  max-width: 560px;
+}
+@media (max-width: 1024px) {
+  .updates-grid { grid-template-columns: 1fr; }
+  .leadership-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+  .leadership-grid { grid-template-columns: repeat(2, 1fr); }
+  .press-cta { padding: 32px 24px; }
+}
+
+/* ─────────────────────────────────
+   SHARE / CONTACT — bright-gray band
+───────────────────────────────── */
+#share {
+  background: color-mix(in oklab, var(--night), var(--paper) 12%);
+  background-image: none;   /* dot-grid texture removed */
+  background-size: 22px 22px;
+}
+
+.share-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.share-title {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 3vw, 40px);
+  font-weight: 400;
+  color: var(--paper);
+  margin-bottom: 16px;
+  line-height: 1.25;
+  font-variation-settings: "opsz" 60;
+}
+
+.share-sub {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: rgba(255,255,255,0.55);
+  line-height: 24px;
+  margin-bottom: 32px;
+}
+
+.share-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.3);
+  background: transparent;
+  padding: 10px 16px;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+.share-ico { width: 16px; height: 16px; flex-shrink: 0; }
+.share-btn:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--paper);
+}
+
+.contact-box {
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: var(--r);
+  padding: 2.5rem;
+}
+
+.contact-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 1rem;
+}
+
+.contact-body {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  line-height: 24px;
+  margin-bottom: 16px;
+}
+
+.contact-email {
+  font-family: var(--font-sans);   /* normal-width Archivo — renders the address lowercase */
+  font-size: 1rem;
+  color: var(--paper);
+}
+
+/* ─────────────────────────────────
+   FOOTER
+───────────────────────────────── */
+footer {
+  background-color: var(--ink);
+  /* Same newsprint grain, tuned a touch stronger to read on the dark band. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='gf'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23gf)' opacity='0.09'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  background-repeat: repeat;
+  padding: 56px var(--pad-h);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.footer-item {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  transition: color 0.15s;
+}
+.footer-item:hover { color: rgba(255,255,255,0.7); }
+
+.footer-privacy {
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  line-height: 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 16px;
+}
+.footer-privacy a { color: rgba(255,255,255,0.35); text-decoration: underline; }
+
+/* ─────────────────────────────────
+   PRIVACY MODAL
+───────────────────────────────── */
+#privacy-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0,0,0,0.72);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+#privacy-modal.open { display: flex; }
+
+.privacy-modal-box {
+  background: var(--paper);
+  border-radius: var(--r);
+  max-width: 680px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 48px;
+  position: relative;
+}
+
+.privacy-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 8px;
+}
+.privacy-modal-close:hover { color: var(--ink); }
+
+.privacy-modal-box h2 {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 8px;
+  font-variation-settings: "opsz" 60;
+}
+.privacy-modal-box .pm-date {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+  display: block;
+}
+.privacy-modal-box h3 {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 24px 0 8px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.privacy-modal-box h3:first-of-type { border-top: none; margin-top: 0; }
+.privacy-modal-box p {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.privacy-modal-box a { color: var(--ink); }
+
+
+/* ─────────────────────────────────
+   RESPONSIVE — all breakpoints collapse the same way because every section
+   now rides the same .inner grid.
+───────────────────────────────── */
+/* TABLET + DOWN: narrow rails, stack the two-column grids, keep centering. */
+@media (max-width: 1024px) {
+  /* Tablet: side padding bumped from 48 → 96 so EVERY section (Hero, Story,
+     Demands, Petition, Voices, Share) shares the same content rail. This is
+     the grid-consistency rule — all sections align to the same left/right
+     edges at tablet, and forms / 2-col cards / stat tiles read as contained
+     units rather than full-bleed bands. Mobile (≤640) re-narrows to 20px. */
+  :root { --pad-h: 96px; }
+  section { padding: 64px 0; }
+  .demands-layout { grid-template-columns: 1fr; gap: 48px; }
+  .petition-layout { grid-template-columns: 1fr; gap: 48px; }
+  .share-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .t-intro { grid-template-columns: 1fr; gap: 1rem; align-items: start; }
+  .t-intro-right { align-items: flex-start; }
+  .t-grid { grid-template-columns: 1fr 1fr; }
+  .t-card.featured { grid-column: span 2; }
+  .form-box { padding: 1.6rem; }
+  /* Hero stays centered at tablet widths — this addresses the tablet
+     preview issue where the buttons were left-aligned. */
+  #hero .inner { text-align: center; }
+  .hero-logo-wrap { justify-content: center; margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; gap: 16px; }
+}
+
+/* MOBILE: single-column everywhere, hero stays centered (was left-aligned
+   in an earlier draft — Beth wants centered on every break). */
+@media (max-width: 640px) {
+  :root { --pad-h: 20px; }   /* phones — narrow viewports, --pad-h shrinks back so content has breathing room */
+  section { padding: 52px 0; }
+  #hero { padding: 56px 0 48px; }
+  #hero .inner { text-align: center; }
+  .hero-logo-wrap { justify-content: center; margin-left: auto; margin-right: auto; }
+  .hero-actions { gap: 12px; justify-content: center; }
+  .t-grid { grid-template-columns: 1fr; }
+  .t-card.featured { grid-column: span 1; }
+  .t-card { padding: 1.5rem; }
+  .share-btns { flex-direction: column; }
+  .share-btn { text-align: center; padding: 13px; }
+  .footer-main { gap: 16px; }
+  footer { padding: 24px var(--pad-h); }
+  .counter-num { font-size: clamp(40px, 10vw, 56px); }
+  .privacy-modal-box { padding: 32px 24px; }
+}
+
+@media (max-width: 480px) {
+  /* Stacked column: re-expand the container to full width so buttons can
+     stretch end-to-end (otherwise width: fit-content from base would clamp
+     the column to a single button's natural width). */
+  .hero-actions { flex-direction: column; align-items: stretch; width: 100%; }
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 380px) {
+  :root { --pad-h: 16px; }
+  .hero-headline { font-size: 38px; }
+  .hero-subhead { font-size: 34px; }
+  .t-h1 { font-size: 30px; }
+}
+
+/* ─────────────────────────────────
+   NEWSPAPER / INQUIRER CUES
+───────────────────────────────── */
+
+
+/* Folio / dateline strip under the hero. */
+.hero-folio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 540px;
+  margin: 30px auto 0;
+  padding: 9px 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero-folio .sep { color: var(--red); font-weight: 700; }
+
+
+/* Inquirer section-color ticks on the demands (a restrained nod to the paper's
+   section palette: gold / health teal / business blue / culture purple). */
+.demand-tick { display: block; width: 30px; height: 4px; margin-bottom: 12px; background: var(--red); }
+
+
+/* ─────────────────────────────────
+   UNION IDENTITY — masthead + footer lockup
+───────────────────────────────── */
+
+/* Masthead — slim site-wide identity strip below the notice bar. */
+.masthead { background: var(--paper); border-bottom: 1px solid var(--ink); }
+.masthead-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 12px var(--pad-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.masthead-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.masthead-brand:hover { text-decoration: none; }
+.masthead-emblem { width: 44px; height: 44px; flex-shrink: 0; }
+.masthead-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.08;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.masthead-local {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.masthead-cta {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--red);
+  padding: 10px 18px;
+  border-radius: var(--r);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.18s;
+}
+.masthead-cta:hover, .masthead-cta:focus { background: var(--red-deep); text-decoration: none; color: var(--paper); }
+@media (max-width: 640px) {
+  .masthead-name { font-size: 16px; }
+  .masthead-emblem { width: 38px; height: 38px; }
+  .masthead-cta { display: none; }   /* stays compact on phones; floating CTA covers the action */
+}
+
+/* Footer lockup */
+.footer-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 56px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.footer-lockup { display: flex; align-items: center; gap: 20px; }
+.footer-emblem { width: 150px; height: 150px; flex-shrink: 0; }   /* fixed size per Beth 2026-07-13 — stretch-to-text-height read too big */
+.footer-org { font-family: var(--font-display); font-size: 21px; font-weight: 700; color: var(--paper); line-height: 1.1; }
+.footer-meta {
+  font-family: var(--font-ui); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.72); margin-top: 6px;
+}
+.footer-affil { font-family: var(--font-sans); font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 6px; }
+.footer-solidarity {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-size: 17px; color: var(--paper); margin-top: 12px;
+}
+.fist-ico { width: 20px; height: 20px; color: var(--red); flex-shrink: 0; }   /* square viewBox now (100x100) — was 18x21 for the old non-square glyph */
+
+.footer-legal { max-width: 440px; }
+.footer-legal-row {
+  display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+  font-family: var(--font-ui); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.62);
+}
+.footer-privacy-link {
+  background: none; border: none; cursor: pointer; padding: 0; font: inherit;
+  color: inherit; text-decoration: underline; text-underline-offset: 3px;
+}
+.footer-privacy-link:hover { color: var(--paper); }
+.footer-privacy-note { font-family: var(--font-sans); font-size: 12px; line-height: 1.6; color: rgba(255,255,255,0.5); margin-top: 14px; }
+.footer-privacy-note a { color: rgba(255,255,255,0.82); }
+
+/* Emblem watermark — large + faint, clipped by the footer. */
+.footer-watermark {
+  position: absolute;
+  right: -70px;
+  bottom: -90px;
+  width: 340px;
+  height: 340px;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+@media (max-width: 640px) { .footer-watermark { width: 240px; height: 240px; right: -60px; } }
+
+/* ── Hero headline: redaction reveal (blur → sharp). CSS-only.
+      Wrapped in no-preference so reduced-motion users see a static headline.
+      DISABLED 2026-07-13 — Beth flagged it's not quite right. Keyframes kept
+      in place in case this gets revisited; the trigger rule below is commented out. */
+@keyframes headline-reveal {
+  from { filter: blur(14px); opacity: 0.15; }
+  to   { filter: blur(0);    opacity: 1; }
+}
+/*
+@media (prefers-reduced-motion: no-preference) {
+  .hero-headline { animation: headline-reveal 1.1s ease-out 0.15s both; }
+}
+*/

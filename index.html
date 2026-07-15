@@ -3,6 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://actionnetwork.org; connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://actionnetwork.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://actionnetwork.org; frame-src https://actionnetwork.org; form-action https://actionnetwork.org">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-09JDXTZS2B"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -11,1493 +12,46 @@
   gtag('config', 'G-09JDXTZS2B');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NewsGuild of Greater Philadelphia — Fair Contract Campaign</title>
+<title>Fair Contract Now — NewsGuild of Greater Philadelphia</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="favicon-64.png">
-<link rel="canonical" href="https://inkybflynn.github.io/newsguild-campaign/">
-<meta name="theme-color" content="#0E7C7B">
+<link rel="canonical" href="https://phillynewsguild.com/">
+<meta name="theme-color" content="#E11B22">
 <meta name="description" content="Sign the petition. Stand with Philadelphia Inquirer workers fighting for a fair contract through the NewsGuild of Greater Philadelphia.">
 <meta property="og:title" content="Fair Contract Now — NewsGuild of Greater Philadelphia">
 <meta property="og:description" content="Sign the petition. Stand with Philadelphia Inquirer workers fighting for a fair contract.">
-<meta property="og:image" content="https://inkybflynn.github.io/newsguild-campaign/og.png">
-<meta property="og:url" content="https://inkybflynn.github.io/newsguild-campaign/">
+<meta property="og:image" content="https://phillynewsguild.com/og.png">
+<meta property="og:url" content="https://phillynewsguild.com/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Fair Contract Now — NewsGuild of Greater Philadelphia">
 <meta name="twitter:description" content="Sign the petition. Stand with Philadelphia Inquirer workers fighting for a fair contract.">
-<meta name="twitter:image" content="https://inkybflynn.github.io/newsguild-campaign/og.png">
+<meta name="twitter:image" content="https://phillynewsguild.com/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<style>
-  /* Redaction — self-hosted (SIL OFL).
-     Weights mapped: Regular cuts → CSS weight 400; Bold cuts → CSS weight 700. */
-  @font-face {
-    font-family: 'Redaction';
-    src: url('fonts/redaction-web/Redaction_100-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Redaction';
-    src: url('fonts/redaction-web/Redaction_100-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Redaction Display';
-    src: url('fonts/redaction-web/Redaction_50-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Redaction Display';
-    src: url('fonts/redaction-web/Redaction_50-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-/* ─────────────────────────────────
-   DESIGN SYSTEM TOKENS
-───────────────────────────────── */
-:root {
-  /* Typography — Redaction (serif) does both display + body; Barlow Condensed
-     stays as the UI label face exactly as before. */
-  --font-display: 'Redaction Display', 'Redaction', Georgia, serif;   /* headlines / h1 / h2 */
-  --font-serif:   'Redaction', Georgia, serif;                        /* body prose */
-  --font-ui:      'Barlow Condensed', 'Arial Narrow', sans-serif;     /* badges, buttons, meta — unchanged */
-
-  /* ───────── Palette — 5 colors ─────────
-     Every surface, mark, and interaction state is sourced from these five.
-     Everything else below is derived from them so the system stays honest. */
-  --ink:    #222222;    /* primary text, borders, dark UI */
-  --paper:  #FFFFFF;    /* page bg, reverse text */
-  --bone:   #F1EEE8;    /* warm tint — section color-shift */
-  --night:  #18191C;    /* dark-band bg (demands, stat sidebar) */
-  --teal:   #0E7C7B;    /* accent + CTA fill + interaction */
-
-  /* Derived states — all computed from the 5 above.
-     These aren't new colors; they're functional aliases so rules stay readable. */
-  --teal-deep:  color-mix(in oklab, var(--teal), black 22%);          /* button hover — 7.3:1 on white */
-  --muted:      rgba(34, 34, 34, 0.62);                                /* 62% ink — caption / secondary text */
-  --border:     rgba(34, 34, 34, 0.14);                                /* 14% ink — hairlines */
-  --dot:        rgba(34, 34, 34, 0.16);                                /* 16% ink — dot pattern */
-
-  /* Layout */
-  --r:          4px;
-  --max:        1360px;
-  --inner-max:  1100px;   /* shared inner width for every section (unifies the grid) */
-  --prose-max:  680px;    /* narrow prose column, left-aligned within --inner-max */
-  --pad-h:      56px;     /* desktop side padding — bumped from 40 to keep content off the viewport edge in the 1024–1280 range */
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-/* Dot pattern is applied per-section (not on body) so color shifts between
-   sections read as color shifts, not as lines cutting through the dot grid. */
-body {
-  font-family: var(--font-serif);
-  background-color: var(--paper);
-  color: var(--ink);
-  font-size: 17px;          /* up from 16 — especially kinder on mobile over dots */
-  line-height: 1.65;
-  overflow-x: hidden;
-}
-a {
-  color: inherit;                          /* text color inherits from context — works in light + dark sections */
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-decoration-color: var(--border);    /* quiet underline by default */
-  text-underline-offset: 3px;
-  transition: text-decoration-color 0.15s, text-decoration-thickness 0.15s;
-}
-a:hover {
-  text-decoration-color: var(--teal);      /* hover signal stays inside the system — teal underline */
-  text-decoration-thickness: 2px;
-}
-/* Button link-state colors. Explicitly setting :hover / :focus / :active alongside
-   :link / :visited is required — otherwise :visited wins the specificity race on
-   links the user has already clicked, and hover text stays dark gray on the teal
-   fill (≈3.5:1, fails WCAG AA). Keeping all states on white forces full ≥5:1
-   contrast on every hover, focus, and active press. */
-a.btn-primary, a.btn-primary:link, a.btn-primary:visited,
-a.btn-primary:hover, a.btn-primary:focus, a.btn-primary:active { color: var(--paper); text-decoration: none; }
-a.btn-ghost, a.btn-ghost:link, a.btn-ghost:visited { color: var(--ink); text-decoration: none; }
-a.btn-ghost:hover, a.btn-ghost:focus, a.btn-ghost:active { color: var(--paper); text-decoration: none; }
-a.btn-outline-sm, a.btn-outline-sm:link, a.btn-outline-sm:visited { color: var(--ink); text-decoration: none; }
-a.btn-outline-sm:hover, a.btn-outline-sm:focus, a.btn-outline-sm:active { color: var(--paper); text-decoration: none; }
-a.share-btn, a.share-btn:link, a.share-btn:visited { color: rgba(255,255,255,0.7); text-decoration: none; }
-
-/* Visible focus ring for keyboard users (accessibility + security: never rely on
-   hover-only affordances that exclude keyboard / assistive tech users). */
-:focus-visible {
-  outline: 2px solid var(--teal);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-/* ─────────────────────────────────
-   LAYOUT — all sections ride the same rails.
-   Every section is full-bleed (for the color band); .inner clamps content
-   to --inner-max. This fixes the grid alignment issue Sam flagged.
-───────────────────────────────── */
-.container {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 var(--pad-h);
-}
-
-section {
-  padding: 80px 0;
-  max-width: 100%;
-  margin: 0;
-}
-
-.inner {
-  max-width: var(--inner-max);
-  margin: 0 auto;
-  padding: 0 var(--pad-h);
-}
-
-/* Dot texture as a reusable mixin class — apply only where we want it. */
-.dots-light {
-  background-image: radial-gradient(circle, var(--dot) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-.dots-dark {
-  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-
-/* ─────────────────────────────────
-   TYPE SCALE
-   Display headings use Redaction Display (level 50 — texture without noise) at
-   weight 600/700; body prose uses Redaction (level 100 — cleanest cut) at 17px.
-   Body size held at 17/18px so the dot pattern doesn't overwhelm reading,
-   especially on mobile. font-variation-settings calls below are leftover from
-   Fraunces/Newsreader (variable fonts); Redaction is static, so they're harmless
-   no-ops — left in place in case we ever swap back to a variable face.
-───────────────────────────────── */
-.t-display {
-  font-family: var(--font-display);
-  font-size: clamp(36px, 4.5vw, 56px);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  font-variation-settings: "opsz" 120, "SOFT" 30;
-}
-
-.t-h1 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 3.6vw, 44px);
-  font-weight: 600;
-  line-height: 1.1;
-  color: var(--ink);
-  font-variation-settings: "opsz" 72;
-}
-
-.t-h2 {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 3.2vw, 38px);
-  font-weight: 600;
-  line-height: 1.15;
-  color: var(--ink);
-  font-variation-settings: "opsz" 48;
-}
-
-.t-h3 {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: var(--ink);
-}
-
-.t-body {
-  font-family: var(--font-serif);
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--muted);
-}
-
-.t-label {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  line-height: 1.4;
-}
-
-.t-caption {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  line-height: 1.4;
-}
-
-/* ─────────────────────────────────
-   BADGE / EYEBROW
-───────────────────────────────── */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  background: var(--muted);
-  color: var(--paper);
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  line-height: 16px;
-  padding: 8px 10px;
-  border-radius: var(--r);
-  margin-bottom: 2rem;
-}
-
-/* ─────────────────────────────────
-   BUTTONS
-───────────────────────────────── */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--teal);               /* teal fill */
-  color: var(--paper);
-  font-family: var(--font-ui);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  line-height: 1;
-  padding: 16px 40px;
-  border-radius: var(--r);
-  border: 2px solid var(--teal);         /* teal border matches fill */
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.18s, border-color 0.18s, transform 0.12s;
-}
-.btn-primary:hover {
-  background: var(--teal-deep);          /* deeper teal on hover — 7.3:1 on white */
-  border-color: var(--teal-deep);
-  transform: translateY(-1px);
-}
-.btn-primary:active { transform: translateY(0); }
-
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  color: var(--ink);
-  font-family: var(--font-ui);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  line-height: 1;
-  padding: 16px 40px;
-  border-radius: var(--r);
-  border: 1px solid var(--ink);
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.18s, color 0.18s, border-color 0.18s;
-}
-.btn-ghost:hover {
-  background: var(--teal);               /* teal hover to match primary family */
-  border-color: var(--teal);
-  color: var(--paper);                     /* 5.06:1 contrast — AA for normal text */
-}
-
-.btn-outline-sm {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-ui);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  border-radius: var(--r);
-  border: 1.5px solid var(--ink);
-  cursor: pointer;
-  text-decoration: none;
-  min-height: 40px;
-  transition: background 0.18s, color 0.18s, border-color 0.18s;
-}
-.btn-outline-sm:hover {
-  background: var(--teal);
-  color: var(--paper);
-  border-color: var(--teal);
-}
-
-/* ─────────────────────────────────
-   PRIVACY BANNER
-───────────────────────────────── */
-#privacy-banner {
-  background: var(--bone);
-  border-bottom: 1px solid var(--border);
-  padding: 8px var(--pad-h);
-  text-align: center;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-/* ─────────────────────────────────
-   FLOATING CTA
-   (Replaces the top nav on this one-pager. Always-available "Sign Now"
-   anchor for users deep in the page.)
-───────────────────────────────── */
-.floating-cta {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 100;
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: var(--teal);               /* teal pill — same signal as hero CTA */
-  color: var(--paper);
-  padding: 14px 22px;
-  border-radius: 999px;
-  text-decoration: none;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
-  transition: background 0.18s, transform 0.12s;
-}
-.floating-cta:hover {
-  background: var(--teal-deep);          /* deeper teal on hover */
-  transform: translateY(-1px);
-  color: var(--paper);
-}
-@media (max-width: 600px) {
-  .floating-cta { bottom: 12px; right: 12px; font-size: 12px; padding: 12px 18px; }
-}
-
-/* ─────────────────────────────────
-   HERO
-───────────────────────────────── */
-#hero {
-  padding: 64px 0 56px;       /* tightened from 96/88 — pulls hero closer to the page top */
-  background: var(--paper);
-  background-image: radial-gradient(circle, var(--dot) 1px, transparent 1px);
-  background-size: 22px 22px;         /* matches .dots-light — same rhythm as story/testimonials */
-}
-#hero .inner { text-align: center; }
-
-.hero-headline {
-  font-optical-sizing: auto;
-  font-family: var(--font-display);
-  font-size: clamp(40px, 6.4vw, 76px);  /* bumped up — per Sam */
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-  margin-bottom: 8px;
-  font-variation-settings: "opsz" 144;
-  /* Prevent the trailing "in." from orphaning to its own line. text-wrap: balance
-     distributes lines evenly across the headline. nbsp glue between "investing"
-     and "in." is the belt-and-suspenders fallback for browsers that don't yet
-     support text-wrap (Firefox < 121, older Safari). pretty kicks in on browsers
-     that support it as a finer-grained orphan guard. */
-  text-wrap: balance;
-  text-wrap: pretty;
-  max-width: 18ch;             /* keeps the headline from sprawling on wide viewports */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-logo-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 24px auto;
-  text-align: center;
-}
-
-.hero-logo-wrap img,
-.hero-logo-wrap svg {
-  width: 144px;
-  height: 144px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-}
-
-.hero-subhead {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 5vw, 56px);
-  font-weight: 400;
-  line-height: 1.08;
-  color: var(--ink);
-  margin-bottom: 8px;
-  font-variation-settings: "opsz" 120;
-  /* italic removed per Beth — no font-style declared, inherits normal */
-}
-
-.hero-actions {
-  display: flex;
-  gap: 24px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 0 auto 24px;
-  /* Belt-and-suspenders centering — the row stays centered even if a media
-     query overrides justify-content somewhere downstream, because the
-     container itself is shrunk to its content and auto-margined. The 480px
-     media re-expands width to 100% so stacked buttons can still stretch. */
-  width: fit-content;
-  max-width: 100%;
-  text-align: center;
-}
-
-.hero-count {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 16px;
-}
-
-
-
-/* Constrained prose column — left-aligned to the inner grid so its left edge
-   matches every other section's left edge (fixes pink-line mismatch Sam called out). */
-.prose-col {
-  max-width: var(--prose-max);
-  margin-left: 0;
-  margin-right: auto;
-}
-/* Hero gets a centered version (it's a centered hero composition). */
-#hero .prose-col { margin-left: auto; }
-
-/* ─────────────────────────────────
-   STORY — WHO WE ARE
-   Single-column narrative (Who we are / Where we've been / What's next) paired
-   with a stat card sidebar. Desktop: 2/3 copy + 1/3 stats. ≤1024px: stacks.
-───────────────────────────────── */
-.story-intro-grid {
-  margin-bottom: 0;
-}
-.story-intro-copy {
-  max-width: var(--prose-max);       /* narrow prose on mobile/tablet */
-  margin-bottom: 40px;               /* breathing room before stacked stats below */
-}
-.story-intro-copy > .story-lead {
-  margin-bottom: 48px;               /* intro paragraph flows into first subsection */
-}
-.story-intro-copy .story-subsection {
-  margin-bottom: 48px;
-}
-.story-intro-copy .story-subsection:last-child {
-  margin-bottom: 0;
-}
-
-.story-who {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--r);
-  overflow: hidden;
-  margin: 0;                         /* flow handled by .story-intro-grid */
-  max-width: var(--prose-max);       /* mobile/tablet cap */
-}
-
-/* Desktop: 2/3 copy + 1/3 stat sidebar. */
-@media (min-width: 1025px) {
-  .story-intro-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;  /* per request — 2/3 text, 1/3 boxes */
-    gap: 64px;
-    align-items: start;
-  }
-  .story-intro-copy {
-    max-width: none;                 /* fill the 2/3 column */
-    margin-bottom: 0;
-  }
-  .story-intro-grid .story-who {
-    grid-template-columns: 1fr;      /* stats stack vertically as a sidebar card */
-    max-width: none;
-    position: sticky;
-    top: 32px;                       /* sticks near top as the prose scrolls past */
-  }
-}
-
-.story-who-stat {
-  background: var(--night);
-  padding: 32px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  transition: background 0.2s;
-}
-.story-who-stat:hover { background: color-mix(in oklab, var(--night), var(--paper) 12%); }
-
-.story-stat-num {
-  font-family: var(--font-serif);
-  font-size: clamp(32px, 3vw, 40px);
-  font-weight: 600;
-  line-height: 1.1;
-  color: var(--paper);
-  font-variation-settings: "opsz" 60;
-}
-
-.story-stat-label {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-}
-
-@media (max-width: 600px) {
-  .story-who { grid-template-columns: 1fr; }
-}
-
-/* ─────────────────────────────────
-   OUR STORY — full-bleed bone background with subtle dots for section transition
-───────────────────────────────── */
-#story {
-  background: var(--bone);
-  background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-
-.story-subsection {
-  margin-bottom: 48px;
-}
-
-.story-subsection:last-child {
-  margin-bottom: 0;
-}
-
-.story-h2 {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 3.2vw, 40px);
-  font-weight: 600;
-  line-height: 1.15;
-  color: var(--ink);
-  margin-bottom: 16px;
-  font-variation-settings: "opsz" 72;
-}
-
-/* ─────────────────────────────────
-   DEMANDS — dark band
-───────────────────────────────── */
-#demands {
-  background: var(--night);
-  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-
-.demands-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
-}
-
-.demands-intro-text {
-  font-family: var(--font-serif);
-  font-size: 18px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.72);
-  margin-bottom: 24px;
-}
-.demands-intro-text p + p { margin-top: 14px; }
-.demands-intro-text strong { color: var(--paper); font-weight: 700; }
-
-/* Simplified list: no "1." column, no "Demand 1:" prefix. Each item is
-   a strong title + supporting description. */
-.demand-list { list-style: none; margin-top: 24px; }
-
-.demand-item {
-  padding: 22px 0 22px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-  border-left: 3px solid transparent;   /* reserve space so hover doesn't shift layout */
-  padding-left: 0;
-  transition: padding-left 0.2s, border-left-color 0.2s, border-bottom-color 0.2s;
-}
-.demand-item:first-child { border-top: 1px solid rgba(255,255,255,0.12); }
-.demand-item:hover {
-  padding-left: 14px;
-  border-left-color: var(--teal);     /* teal rail on hover — a little life */
-  border-bottom-color: var(--teal);
-}
-
-.demand-title {
-  font-family: var(--font-ui);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: var(--paper);
-  margin-bottom: 8px;
-  line-height: 1.15;
-}
-
-.demand-desc {
-  font-family: var(--font-serif);
-  font-size: 17px;
-  font-weight: 400;
-  color: rgba(255,255,255,0.72);
-  line-height: 1.55;
-}
-
-.demands-aside {
-  position: sticky;
-  top: 80px;
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: var(--r);
-  padding: 2rem;
-  background: rgba(255,255,255,0.06);
-}
-
-.pull-quote-text {
-  font-family: var(--font-serif);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.75;
-  color: var(--paper);
-  margin-bottom: 1rem;
-  padding-left: 1rem;
-  border-left: 2px solid var(--teal);   /* teal rail on the quote */
-}
-
-.pull-quote-attr {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-}
-
-/* ─────────────────────────────────
-   TESTIMONIALS — bone band, same inner grid as everything else
-───────────────────────────────── */
-#testimonials {
-  background: var(--bone);
-  background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-
-.t-intro {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 2rem;
-  align-items: end;
-  margin-bottom: 32px;
-}
-
-.t-intro-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-}
-
-.t-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;                 /* real breathing room instead of a 1px seam */
-}
-
-.t-card {
-  background: var(--paper);
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--border);
-  border-radius: 6px;        /* a touch more rounded than global --r for card-like feel */
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
-  position: relative;
-}
-.t-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.10);
-  border-color: var(--teal);
-  z-index: 1;
-}
-
-.t-card.featured {
-  grid-column: span 2;
-  background: var(--paper);
-  border-top: 4px solid var(--teal);   /* teal ribbon — marks the featured voice */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
-}
-.t-card.featured:hover {
-  border-top-color: var(--teal);       /* keep the ribbon on hover */
-  border-color: var(--teal);
-}
-
-.t-quote {
-  font-family: var(--font-serif);
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 1.55;
-  color: var(--muted);
-  flex: 1;
-  margin-bottom: 24px;
-}
-
-.t-card.featured .t-quote {
-  font-family: var(--font-display);
-  font-size: clamp(20px, 2vw, 24px);
-  line-height: 1.4;
-  font-weight: 500;
-  color: var(--ink);
-  font-variation-settings: "opsz" 48;
-}
-
-.t-footer {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-}
-
-.t-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: color-mix(in oklab, var(--night), var(--paper) 12%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--paper);
-  flex-shrink: 0;
-  transition: background 0.2s;
-}
-.t-card:hover .t-avatar { background: var(--teal); }
-
-.t-name {
-  font-family: var(--font-ui);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 2px;
-}
-
-.t-role {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.t-more {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin-top: 32px;
-}
-
-/* ─────────────────────────────────
-   PETITION — white band between dark "demands" and bone "voices"
-───────────────────────────────── */
-#petition {
-  background: var(--paper);
-}
-
-.petition-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
-}
-
-.petition-counter {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 24px 0;
-  margin: 32px 0;
-}
-
-.counter-num {
-  font-family: var(--font-serif);
-  font-size: clamp(48px, 6vw, 72px);
-  font-weight: 600;
-  line-height: 1;
-  color: var(--teal);            /* teal — the single brightest accent on the page */
-  margin-bottom: 4px;
-  font-variation-settings: "opsz" 60;
-}
-
-.counter-label {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-
-.progress-track {
-  height: 3px;
-  background: var(--border);
-  border-radius: 2px;
-  margin-bottom: 6px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  width: 41.5%;   /* 166 / 400 — starting signatures from initial mgmt letter */
-  background: var(--teal);
-  transition: width 0.4s;
-}
-
-.progress-goals {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.form-box {
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  background: var(--paper);
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-.form-hdr {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.form-hdr::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-.petition-privacy-note {
-  margin-bottom: 20px;
-  padding: 12px;
-  background: var(--bone);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-.petition-privacy-note a { color: var(--ink); text-decoration: underline; }
-
-.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.f-field { margin-bottom: 1rem; }
-
-.f-label {
-  display: block;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink);
-  margin-bottom: 5px;
-}
-
-.f-input {
-  width: 100%;
-  font-family: var(--font-ui);
-  font-size: 16px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  background: var(--bone);
-  color: var(--muted);
-  outline: none;
-}
-.f-input:focus {
-  border-color: var(--teal);
-  box-shadow: 0 0 0 3px rgba(30,79,163,0.12);
-}
-
-textarea.f-input {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.f-consent {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin: 16px 0 20px;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-.f-consent input { margin-top: 2px; flex-shrink: 0; }
-
-.btn-submit {
-  width: 100%;
-  font-family: var(--font-ui);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: var(--teal);               /* petition submit — teal to match hero CTA */
-  color: var(--paper);
-  border: 2px solid var(--teal);
-  padding: 16px;
-  border-radius: var(--r);
-  cursor: pointer;
-  line-height: 1;
-  margin-bottom: 10px;
-  transition: background 0.18s, border-color 0.18s;
-}
-.btn-submit:hover {
-  background: var(--teal-deep);          /* deeper teal on hover — AAA contrast with white */
-  border-color: var(--teal-deep);
-}
-
-.form-footnote {
-  text-align: center;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 8px;
-}
-
-.an-note {
-  margin-top: 16px;
-  padding: 10px 14px;
-  border-left: 3px solid color-mix(in oklab, var(--night), var(--paper) 12%);
-  background: var(--bone);
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  border-radius: 0 var(--r) var(--r) 0;
-}
-
-/* ─────────────────────────────────
-   UPDATES — white band
-───────────────────────────────── */
-#updates {
-  background: var(--paper);
-  padding: 80px 0;
-}
-.updates-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-.update-card {
-  background: var(--bone);
-  border-radius: 8px;
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  border: 1px solid var(--border);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
-}
-.update-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.10);
-  border-color: var(--teal);
-  z-index: 1;
-}
-.featured-update {
-  border-left: 3px solid var(--teal);
-}
-.featured-update:hover {
-  border-left-color: var(--teal);
-}
-.update-tag {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--teal);
-}
-.update-headline {
-  font-family: var(--font-display);
-  font-size: clamp(20px, 2.5vw, 26px);
-  color: var(--ink);
-  margin: 0;
-  line-height: 1.25;
-}
-.update-body {
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--ink);
-  margin: 0;
-}
-.update-date {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: auto;
-  padding-top: 8px;
-}
-.leadership-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 24px;
-  margin-bottom: 24px;
-}
-.leader-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  text-align: center;
-  padding: 16px 8px;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
-}
-.leader-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.10);
-  border-color: var(--teal);
-  background: var(--bone);
-}
-.leader-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: var(--bone);
-  border: 2px solid var(--border);
-}
-.leader-name {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink);
-}
-.leader-role {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.press-cta {
-  padding: 40px 48px;
-  background: var(--night);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: flex-start;
-}
-.press-cta-label {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--teal);
-  margin: 0;
-}
-.press-cta-headline {
-  font-family: var(--font-display);
-  font-size: clamp(22px, 2.5vw, 30px);
-  color: var(--paper);
-  margin: 0;
-}
-.press-cta-body {
-  font-size: 16px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.65);
-  margin: 0;
-  max-width: 560px;
-}
-@media (max-width: 1024px) {
-  .updates-grid { grid-template-columns: 1fr; }
-  .leadership-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 640px) {
-  .leadership-grid { grid-template-columns: repeat(2, 1fr); }
-  .press-cta { padding: 32px 24px; }
-}
-
-/* ─────────────────────────────────
-   SHARE / CONTACT — bright-gray band
-───────────────────────────────── */
-#share {
-  background: color-mix(in oklab, var(--night), var(--paper) 12%);
-  background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-
-.share-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.share-title {
-  font-family: var(--font-serif);
-  font-size: clamp(24px, 3vw, 40px);
-  font-weight: 400;
-  color: var(--paper);
-  margin-bottom: 16px;
-  line-height: 1.25;
-  font-variation-settings: "opsz" 60;
-}
-
-.share-sub {
-  font-family: var(--font-serif);
-  font-size: 16px;
-  color: rgba(255,255,255,0.55);
-  line-height: 24px;
-  margin-bottom: 32px;
-}
-
-.share-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-
-.share-btn {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-  border: 1px solid rgba(255,255,255,0.3);
-  background: transparent;
-  padding: 10px 18px;
-  border-radius: var(--r);
-  cursor: pointer;
-  transition: background 0.18s, border-color 0.18s, color 0.18s;
-}
-.share-btn:hover {
-  background: var(--teal);
-  border-color: var(--teal);
-  color: var(--paper);
-}
-
-.contact-box {
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: var(--r);
-  padding: 2.5rem;
-}
-
-.contact-label {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 1rem;
-}
-
-.contact-body {
-  font-family: var(--font-serif);
-  font-size: 16px;
-  color: rgba(255,255,255,0.5);
-  line-height: 24px;
-  margin-bottom: 16px;
-}
-
-.contact-email {
-  font-family: var(--font-ui);
-  font-size: 1rem;
-  color: var(--paper);
-}
-
-/* ─────────────────────────────────
-   FOOTER
-───────────────────────────────── */
-footer {
-  background: var(--ink);
-  padding: 32px var(--pad-h);
-}
-
-.footer-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin-bottom: 16px;
-}
-
-.footer-item {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.25);
-  transition: color 0.15s;
-}
-.footer-item:hover { color: rgba(255,255,255,0.7); }
-
-.footer-privacy {
-  text-align: center;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: rgba(255,255,255,0.2);
-  line-height: 24px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding-top: 16px;
-}
-.footer-privacy a { color: rgba(255,255,255,0.35); text-decoration: underline; }
-
-/* ─────────────────────────────────
-   PRIVACY MODAL
-───────────────────────────────── */
-#privacy-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  background: rgba(0,0,0,0.72);
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-#privacy-modal.open { display: flex; }
-
-.privacy-modal-box {
-  background: var(--paper);
-  border-radius: var(--r);
-  max-width: 680px;
-  width: 100%;
-  max-height: 88vh;
-  overflow-y: auto;
-  padding: 48px;
-  position: relative;
-}
-
-.privacy-modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding: 8px;
-}
-.privacy-modal-close:hover { color: var(--ink); }
-
-.privacy-modal-box h2 {
-  font-family: var(--font-serif);
-  font-size: 32px;
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--ink);
-  margin-bottom: 8px;
-  font-variation-settings: "opsz" 60;
-}
-.privacy-modal-box .pm-date {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 32px;
-  display: block;
-}
-.privacy-modal-box h3 {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink);
-  margin: 24px 0 8px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-}
-.privacy-modal-box h3:first-of-type { border-top: none; margin-top: 0; }
-.privacy-modal-box p {
-  font-family: var(--font-serif);
-  font-size: 16px;
-  line-height: 24px;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-.privacy-modal-box a { color: var(--ink); }
-
-
-/* ─────────────────────────────────
-   VIEWPORT TOGGLE TOOLBAR
-───────────────────────────────── */
-@media (max-width: 1024px) { #wf-toolbar { display: none; } }
-#wf-toolbar.in-iframe { display: none !important; }
-#wf-toolbar {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #18191c;
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 10px;
-  padding: 5px 8px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  z-index: 9999;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  font-family: var(--font-ui);
-}
-#wf-label { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); padding: 0 4px; }
-#wf-div { width: 1px; height: 16px; background: rgba(255,255,255,0.1); margin: 0 2px; }
-.wf-btn {
-  display: flex; align-items: center; gap: 5px;
-  background: transparent; border: 1px solid transparent; border-radius: 6px;
-  color: rgba(255,255,255,0.4); font-family: var(--font-ui); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 10px; cursor: pointer; transition: all 0.12s; white-space: nowrap;
-}
-.wf-btn:hover { color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.07); }
-.wf-btn.active { color: #fff; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
-#vp-shell { display: none; position: fixed; inset: 0; background: #0c0c0e; z-index: 9990; align-items: center; justify-content: center; padding-bottom: 68px; }
-#vp-shell.on { display: flex; }
-#vp-wrap { position: relative; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px rgba(255,255,255,0.07), 0 32px 80px rgba(0,0,0,0.7); transition: width 0.28s cubic-bezier(.4,0,.2,1), height 0.28s cubic-bezier(.4,0,.2,1); background: #fff; display: flex; flex-direction: column; }
-#vp-notch { display: none; background: #18191c; height: 26px; align-items: center; justify-content: center; flex-shrink: 0; }
-#vp-notch::after { content: ''; width: 72px; height: 5px; background: rgba(255,255,255,0.2); border-radius: 3px; }
-#vp-notch.on { display: flex; }
-#vp-frame { flex: 1; border: none; width: 100%; display: block; }
-#vp-lbl { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); font-family: var(--font-ui); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); white-space: nowrap; }
-
-/* ─────────────────────────────────
-   RESPONSIVE — all breakpoints collapse the same way because every section
-   now rides the same .inner grid.
-───────────────────────────────── */
-/* TABLET + DOWN: narrow rails, stack the two-column grids, keep centering. */
-@media (max-width: 1024px) {
-  /* Tablet: side padding bumped from 48 → 96 so EVERY section (Hero, Story,
-     Demands, Petition, Voices, Share) shares the same content rail. This is
-     the grid-consistency rule — all sections align to the same left/right
-     edges at tablet, and forms / 2-col cards / stat tiles read as contained
-     units rather than full-bleed bands. Mobile (≤640) re-narrows to 20px. */
-  :root { --pad-h: 96px; }
-  section { padding: 64px 0; }
-  .demands-layout { grid-template-columns: 1fr; gap: 48px; }
-  .petition-layout { grid-template-columns: 1fr; gap: 48px; }
-  .share-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .t-intro { grid-template-columns: 1fr; gap: 1rem; align-items: start; }
-  .t-intro-right { align-items: flex-start; }
-  .t-grid { grid-template-columns: 1fr 1fr; }
-  .t-card.featured { grid-column: span 2; }
-  .f-row { grid-template-columns: 1fr; }
-  .form-box { padding: 1.6rem; }
-  /* Hero stays centered at tablet widths — this addresses the tablet
-     preview issue where the buttons were left-aligned. */
-  #hero .inner { text-align: center; }
-  .hero-logo-wrap { justify-content: center; margin-left: auto; margin-right: auto; }
-  .hero-actions { justify-content: center; gap: 16px; }
-}
-
-/* MOBILE: single-column everywhere, hero stays centered (was left-aligned
-   in an earlier draft — Beth wants centered on every break). */
-@media (max-width: 640px) {
-  :root { --pad-h: 20px; }   /* phones — narrow viewports, --pad-h shrinks back so content has breathing room */
-  section { padding: 52px 0; }
-  #hero { padding: 56px 0 48px; }
-  #hero .inner { text-align: center; }
-  .hero-logo-wrap { justify-content: center; margin-left: auto; margin-right: auto; }
-  .hero-actions { gap: 12px; justify-content: center; }
-  .t-grid { grid-template-columns: 1fr; }
-  .t-card.featured { grid-column: span 1; }
-  .t-card { padding: 1.5rem; }
-  .share-btns { flex-direction: column; }
-  .share-btn { text-align: center; padding: 13px; }
-  .footer-main { gap: 16px; }
-  footer { padding: 24px var(--pad-h); }
-  .counter-num { font-size: clamp(40px, 10vw, 56px); }
-  .privacy-modal-box { padding: 32px 24px; }
-  .f-input { font-size: 16px; }   /* prevent iOS zoom on focus */
-}
-
-@media (max-width: 480px) {
-  /* Stacked column: re-expand the container to full width so buttons can
-     stretch end-to-end (otherwise width: fit-content from base would clamp
-     the column to a single button's natural width). */
-  .hero-actions { flex-direction: column; align-items: stretch; width: 100%; }
-  .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
-}
-
-@media (max-width: 380px) {
-  :root { --pad-h: 16px; }
-  .hero-headline { font-size: 38px; }
-  .hero-subhead { font-size: 34px; }
-  .t-h1 { font-size: 30px; }
-}
-
-
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-
-<div id="privacy-banner">
-  This is a union organizing campaign page. Information submitted is used solely for campaign purposes. This site uses Google Analytics. <button onclick="openPrivacy()" style="background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;text-decoration:underline;padding:0;">Privacy Policy</button>
+<div id="notice-bar">
+  <a class="notice-bar__msg" href="#petition">Inquirer workers are fighting for a fair contract. <strong>Add your name &rarr;</strong></a>
+  <button class="notice-bar__close" type="button" aria-label="Dismiss announcement" onclick="dismissNotice()">&#10005;</button>
 </div>
 
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="masthead-brand" href="#hero" aria-label="NewsGuild of Greater Philadelphia, CWA Local 38010">
+      <img class="masthead-emblem" src="assets/logo.svg" alt="" width="44" height="44">
+      <span class="masthead-name">NewsGuild of Greater Philadelphia<span class="masthead-local">CWA Local 38010</span></span>
+    </a>
+    <a class="masthead-cta" href="#petition">Sign the Petition</a>
+  </div>
+</header>
 
 <a href="#petition" class="floating-cta" aria-label="Jump to the petition to sign">Sign Now</a>
-
 
 <section id="hero">
   <div class="inner">
@@ -1558,21 +112,22 @@ footer {
 </svg>
   </div>
   <p class="hero-subhead">So are its workers.</p>
+  <p class="hero-lead">Sign our petition to let management know you agree.</p>
   <div class="hero-actions">
     <a href="#petition" class="btn-primary">Sign Our Petition</a>
   </div>
-  <p class="hero-count">166 colleagues have signed</p>
+  <p class="hero-count"><span class="count-up" data-target="166">166</span> supporters have signed</p>
+  <div class="hero-folio"><span>Philadelphia</span><span class="sep">&middot;</span><span>NewsGuild Local 38010</span><span class="sep">&middot;</span><span>Est. 1937</span></div>
   </div>
   </div>
 </section>
-
 
 <section id="story">
   <div class="inner">
     
     <div class="story-intro-grid">
       <div class="story-intro-copy">
-        <span class="badge">Our Story</span>
+        <span class="kicker"><svg class="kicker-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13 21V23H11V21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H9C10.1947 3 11.2671 3.52375 12 4.35418C12.7329 3.52375 13.8053 3 15 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H13ZM20 19V5H15C13.8954 5 13 5.89543 13 7V19H20ZM11 19V7C11 5.89543 10.1046 5 9 5H4V19H11Z"/></svg><span class="kicker-label">Our Story</span></span>
         <h2 class="story-h2" style="margin-bottom:20px;">Who we are</h2>
         <p class="t-body story-lead">The NewsGuild of Greater Philadelphia represents over 220 employees at <a href="https://www.inquirer.com" target="_blank" rel="noopener noreferrer">The Philadelphia Inquirer</a> who create the journalism, social media, advertising, and multiplatform technology that hundreds of thousands of people rely on every day.</p>
 
@@ -1605,10 +160,9 @@ footer {
   </div>
 </section>
 
-
 <section id="demands">
   <div class="inner">
-  <span class="badge" style="background:rgba(255,255,255,0.14);color:rgba(255,255,255,0.85);">Our Demands</span>
+  <span class="kicker on-dark"><svg class="kicker-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M9 17C9 17 16 18 19 21H20C20.5523 21 21 20.5523 21 20V13.937C21.8626 13.715 22.5 12.9319 22.5 12C22.5 11.0681 21.8626 10.285 21 10.063V4C21 3.44772 20.5523 3 20 3H19C16 6 9 7 9 7H5C3.89543 7 3 7.89543 3 9V15C3 16.1046 3.89543 17 5 17H6L7 22H9V17ZM11 8.6612C11.6833 8.5146 12.5275 8.31193 13.4393 8.04373C15.1175 7.55014 17.25 6.77262 19 5.57458V18.4254C17.25 17.2274 15.1175 16.4499 13.4393 15.9563C12.5275 15.6881 11.6833 15.4854 11 15.3388V8.6612ZM5 9H9V15H5V9Z"/></svg><span class="kicker-label">Our Demands</span></span>
   <div class="demands-layout">
     <div>
       <h2 class="t-h2" style="margin-bottom: 20px; color:var(--paper);">2025 Revenue Increase</h2>
@@ -1617,46 +171,39 @@ footer {
         <p>Simply put, there is no future to invest in without us.</p>
         <p>For our next three-year contract, we are asking for:</p>
       </div>
-      
+    </div>
+    <div>
       <ul class="demand-list">
         <li class="demand-item">
-          <div class="demand-title">Cost-of-living raises</div>
+          <span class="demand-tick"></span><div class="demand-title">Meaningful raises</div>
           <div class="demand-desc">Pay raises that allow our workers to afford to live in the communities they cover.</div>
         </li>
         <li class="demand-item">
-          <div class="demand-title">Affordable healthcare</div>
+          <span class="demand-tick"></span><div class="demand-title">Affordable healthcare</div>
           <div class="demand-desc">Keep our healthcare affordable.</div>
         </li>
         <li class="demand-item">
-          <div class="demand-title">AI guardrails</div>
+          <span class="demand-tick"></span><div class="demand-title">AI guardrails</div>
           <div class="demand-desc">Responsible guardrails around artificial intelligence to protect the integrity of our journalism.</div>
         </li>
         <li class="demand-item">
-          <div class="demand-title">Better hiring</div>
+          <span class="demand-tick"></span><div class="demand-title">Inclusive hiring</div>
           <div class="demand-desc">Improved hiring practices to make our newsroom reflect the city it serves.</div>
         </li>
       </ul>
     </div>
-    <div>
-      
-      <div class="demands-aside">
-        <p class="pull-quote-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — ut enim ad minim veniam, quis nostrud exercitation.</p>
-        <p class="pull-quote-attr">— Lorem Ipsum, Placeholder Role</p>
-      </div>
-    </div>
   </div>
   </div></section>
 
-
 <section id="petition">
   <div class="inner">
-  <span class="badge">Sign the Petition</span>
+  <span class="kicker"><svg class="kicker-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6.93912 14.0328C6.7072 14.6563 6.51032 15.2331 6.33421 15.8155C7.29345 15.1189 8.43544 14.6767 9.75193 14.5121C12.2652 14.198 14.4976 12.5385 15.6279 10.4537L14.1721 8.99888L15.5848 7.58417C15.9185 7.25004 16.2521 6.91614 16.5858 6.58248C17.0151 6.15312 17.5 5.35849 18.0129 4.2149C12.4197 5.08182 8.99484 8.50647 6.93912 14.0328ZM17 8.99739L18 9.99669C17 12.9967 14 15.9967 10 16.4967C7.33146 16.8303 5.66421 18.6636 4.99824 21.9967H3C4 15.9967 6 1.99669 21 1.99669C20.0009 4.99402 19.0018 6.99313 18.0027 7.99402C17.6662 8.33049 17.3331 8.66382 17 8.99739Z"/></svg><span class="kicker-label">Sign the Petition</span></span>
   <div class="petition-layout">
     <div>
       <h2 class="t-h2" style="margin-bottom: 16px;">Show your Support</h2>
       <p class="t-body">Whether you're a fan of our hard-hitting accountability journalism, a newsletter reader, a food and sports diehard, an enjoyer of our quirky social media videos, or someone who can't wait to read your favorite columnist's take on what's happening — your commitment to journalism makes our region better.</p>
       <div class="petition-counter">
-        <div class="counter-num">166</div>
+        <div class="counter-num count-up" data-target="166">166</div>
         <div class="counter-label">Signatures and counting</div>
         <div class="progress-track"><div class="progress-fill"></div></div>
         <div class="progress-goals"><span>0</span><span>Goal: 400</span></div>
@@ -1671,48 +218,18 @@ footer {
         <div class="petition-privacy-note">
           Petition signatures are collected and stored by <a href="https://actionnetwork.org/privacy" target="_blank" rel="noopener noreferrer">Action Network</a>. By signing, you agree to their privacy policy. Your email will not be published or shared.
         </div>
-        <form name="petition" onsubmit="return false;">
-        <div class="f-row">
-          <div class="f-field">
-            <label class="f-label" for="f-first">First Name</label>
-            <input class="f-input" id="f-first" name="first_name" type="text" placeholder="Jane" autocomplete="given-name" required>
-          </div>
-          <div class="f-field">
-            <label class="f-label" for="f-last">Last Name</label>
-            <input class="f-input" id="f-last" name="last_name" type="text" placeholder="Smith" autocomplete="family-name" required>
-          </div>
-        </div>
-        <div class="f-field">
-          <label class="f-label" for="f-email">Email Address</label>
-          <input class="f-input" id="f-email" name="email" type="email" placeholder="jane@example.com" autocomplete="email" required>
-        </div>
-        <div class="f-field">
-          <label class="f-label" for="f-role">Role / Title <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
-          <input class="f-input" id="f-role" name="role" type="text" placeholder="Reader, subscriber, supporter...">
-        </div>
-        <div class="f-field">
-          <label class="f-label" for="f-message">Your Message <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
-          <textarea class="f-input" id="f-message" name="message" placeholder="Leave a message of solidarity..."></textarea>
-        </div>
-        <div class="f-consent">
-          <input type="checkbox" id="f-consent" name="consent" value="yes">
-          <label for="f-consent">I agree that my name and message may be displayed publicly as a supporter of this campaign. My email will not be published.</label>
-        </div>
-        <button class="btn-submit" type="submit">Sign Our Petition</button>
-        <p class="form-footnote">Your email will never be shared or published.</p>
-        </form>
+        <script src='https://actionnetwork.org/widgets/v6/petition/the-inquirer-is-worth-investing-in-so-are-its-workers?format=js&source=widget'></script><div id='can-petition-area-the-inquirer-is-worth-investing-in-so-are-its-workers' style='width: 100%'><!-- this div is the target for our HTML insertion --></div>
       </div>
     </div>
   </div>
   </div>
 </section>
 
-
 <section id="testimonials">
   <div class="inner">
   <div class="t-intro">
     <div>
-      <span class="badge" style="margin-bottom: 1rem;">Voices</span>
+      <span class="kicker"><svg class="kicker-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21 3C21.5523 3 22 3.44772 22 4V18C22 18.5523 21.5523 19 21 19H6.455L2 22.5V4C2 3.44772 2.44772 3 3 3H21ZM20 5H4V18.385L5.76333 17H20V5ZM10.5153 7.4116L10.9616 8.1004C9.29402 9.0027 9.32317 10.4519 9.32317 10.7645C9.47827 10.7431 9.64107 10.7403 9.80236 10.7553C10.7045 10.8389 11.4156 11.5795 11.4156 12.5C11.4156 13.4665 10.6321 14.25 9.66558 14.25C9.12905 14.25 8.61598 14.0048 8.29171 13.6605C7.77658 13.1137 7.5 12.5 7.5 11.5052C7.5 9.75543 8.72825 8.18684 10.5153 7.4116ZM15.5153 7.4116L15.9616 8.1004C14.294 9.0027 14.3232 10.4519 14.3232 10.7645C14.4783 10.7431 14.6411 10.7403 14.8024 10.7553C15.7045 10.8389 16.4156 11.5795 16.4156 12.5C16.4156 13.4665 15.6321 14.25 14.6656 14.25C14.1291 14.25 13.616 14.0048 13.2917 13.6605C12.7766 13.1137 12.5 12.5 12.5 11.5052C12.5 9.75543 13.7283 8.18684 15.5153 7.4116Z"/></svg><span class="kicker-label">Voices</span></span>
       <h2 class="t-h2">In their own words</h2>
     </div>
   </div>
@@ -1726,7 +243,7 @@ footer {
           <div class="t-name">Ellie Rushing</div>
           <div class="t-role">Criminal Justice Reporter · NewsGuild VP</div>
         </div>
-        <span class="badge" style="margin-left:auto;margin-bottom:0;font-size:9px;padding:4px 10px">Featured</span>
+        <span class="badge" style="margin-left:auto;margin-bottom:0;font-size:12px;padding:5px 11px">Featured</span>
       </div>
     </div>
     
@@ -1757,100 +274,29 @@ footer {
   </div>
 </section>
 
-
-<section id="updates">
-  <div class="inner">
-    <div class="t-intro">
-      <div>
-        <span class="badge" style="margin-bottom: 1rem;">NewsGuild Updates</span>
-        <h2 class="t-h2">What's happening</h2>
-      </div>
-    </div>
-
-    <div class="updates-grid">
-
-      <div class="update-card featured-update">
-        <span class="update-tag">Announcement</span>
-        <h3 class="update-headline">Product Design &amp; Engineering joins the Guild</h3>
-        <p class="update-body">The Product Design and Engineering department has officially joined the NewsGuild of Greater Philadelphia. Their membership strengthens our unit and makes clear that the people who build and sustain The Inquirer's digital future are standing together with the newsroom.</p>
-        <span class="update-date">May 2026</span>
-      </div>
-
-      <div class="update-card">
-        <span class="update-tag">Leadership</span>
-        <h3 class="update-headline">Meet your new Guild leadership</h3>
-        <p class="update-body">We have a new executive team in place and ready to fight for a fair contract. Get to know the people representing you at the table.</p>
-        <span class="update-date">May 2026</span>
-      </div>
-
-    </div>
-
-    <div class="leadership-grid">
-      <div class="leader-card">
-        <div class="leader-avatar"></div>
-        <div class="leader-name">Name Placeholder</div>
-        <div class="leader-role">President</div>
-      </div>
-      <div class="leader-card">
-        <div class="leader-avatar"></div>
-        <div class="leader-name">Name Placeholder</div>
-        <div class="leader-role">Vice President</div>
-      </div>
-      <div class="leader-card">
-        <div class="leader-avatar"></div>
-        <div class="leader-name">Name Placeholder</div>
-        <div class="leader-role">Vice President</div>
-      </div>
-      <div class="leader-card">
-        <div class="leader-avatar"></div>
-        <div class="leader-name">Name Placeholder</div>
-        <div class="leader-role">Steward</div>
-      </div>
-      <div class="leader-card">
-        <div class="leader-avatar"></div>
-        <div class="leader-name">Name Placeholder</div>
-        <div class="leader-role">Steward</div>
-      </div>
-      <div class="leader-card">
-        <div class="leader-avatar"></div>
-        <div class="leader-name">Name Placeholder</div>
-        <div class="leader-role">Steward</div>
-      </div>
-    </div>
-
-    <div class="press-cta">
-      <p class="press-cta-label">Press inquiries</p>
-      <h3 class="press-cta-headline">Covering the contract fight?</h3>
-      <p class="press-cta-body">We welcome interview requests from journalists covering labor, local news, and the future of Philadelphia journalism. Reach out and we'll get back to you quickly.</p>
-      <a id="press-email-link" href="#" class="btn-primary">Request an interview</a>
-    </div>
-  </div>
-</section>
-
 <section id="share">
   <div class="inner share-inner">
     <div>
-      <span class="badge" style="background:rgba(255,255,255,0.18);color:rgba(255,255,255,0.8);margin-bottom:1.2rem">Share &amp; Contact</span>
+      <span class="kicker on-dark"><svg class="kicker-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13.1202 17.0228L8.92129 14.7324C8.19135 15.5125 7.15261 16 6 16C3.79086 16 2 14.2091 2 12C2 9.79086 3.79086 8 6 8C7.15255 8 8.19125 8.48746 8.92118 9.26746L13.1202 6.97713C13.0417 6.66441 13 6.33707 13 6C13 3.79086 14.7909 2 17 2C19.2091 2 21 3.79086 21 6C21 8.20914 19.2091 10 17 10C15.8474 10 14.8087 9.51251 14.0787 8.73246L9.87977 11.0228C9.9583 11.3355 10 11.6629 10 12C10 12.3371 9.95831 12.6644 9.87981 12.9771L14.0788 15.2675C14.8087 14.4875 15.8474 14 17 14C19.2091 14 21 15.7909 21 18C21 20.2091 19.2091 22 17 22C14.7909 22 13 20.2091 13 18C13 17.6629 13.0417 17.3355 13.1202 17.0228ZM6 14C7.10457 14 8 13.1046 8 12C8 10.8954 7.10457 10 6 10C4.89543 10 4 10.8954 4 12C4 13.1046 4.89543 14 6 14ZM17 8C18.1046 8 19 7.10457 19 6C19 4.89543 18.1046 4 17 4C15.8954 4 15 4.89543 15 6C15 7.10457 15.8954 8 17 8ZM17 20C18.1046 20 19 19.1046 19 18C19 16.8954 18.1046 16 17 16C15.8954 16 15 16.8954 15 18C15 19.1046 15.8954 20 17 20Z"/></svg><span class="kicker-label">Share &amp; Contact</span></span>
       <h2 class="share-title">Spread the word.<br>Tell a friend.</h2>
-      <p class="share-sub">Share this page with your colleagues, readers, and community. Every signature matters.</p>
+      <p class="share-sub">Share this page with your supporters, readers, and community. Every signature matters.</p>
       <div class="share-btns">
-        <button class="share-btn" onclick="navigator.clipboard.writeText('https://inkybflynn.github.io/newsguild-campaign/').then(function(){var b=this;b.textContent='Copied!';setTimeout(function(){b.textContent='Copy Link'},2000)}.bind(this))">Copy Link</button>
-        <a class="share-btn" href="https://twitter.com/intent/tweet?text=Support+the+NewsGuild+of+Greater+Philadelphia+%E2%80%94+sign+the+petition+for+a+fair+contract&url=https%3A%2F%2Finkybflynn.github.io%2Fnewsguild-campaign%2F" target="_blank" rel="noopener noreferrer">Twitter / X</a>
-        <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Finkybflynn.github.io%2Fnewsguild-campaign%2F" target="_blank" rel="noopener noreferrer">Facebook</a>
-        <a class="share-btn" href="https://bsky.app/intent/compose?text=Support+the+NewsGuild+of+Greater+Philadelphia+%E2%80%94+sign+the+petition+for+a+fair+contract+https%3A%2F%2Finkybflynn.github.io%2Fnewsguild-campaign%2F" target="_blank" rel="noopener noreferrer">Bluesky</a>
-        <a class="share-btn" href="mailto:?subject=The%20Inquirer%20staff%20needs%20your%20support&body=Hey%2C%0A%0AThe%20journalists%2C%20photographers%2C%20and%20staff%20at%20The%20Philadelphia%20Inquirer%20are%20fighting%20for%20a%20fair%20contract%20through%20the%20NewsGuild%20of%20Greater%20Philadelphia.%0A%0AThey%27ve%20been%20working%20without%20a%20new%20contract%20and%20need%20community%20support.%20Signing%20the%20petition%20takes%2030%20seconds%20and%20sends%20a%20clear%20message%20to%20management.%0A%0ASign%20here%3A%20https%3A%2F%2Finkybflynn.github.io%2Fnewsguild-campaign%2F%0A%0AThanks%20for%20standing%20with%20local%20journalism.">Email a Friend</a>
+        <button class="share-btn" type="button" onclick="copyShareLink(this)"><svg class="share-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13.0607 8.11097L14.4749 9.52518C17.2086 12.2589 17.2086 16.691 14.4749 19.4247L14.1214 19.7782C11.3877 22.5119 6.95555 22.5119 4.22188 19.7782C1.48821 17.0446 1.48821 12.6124 4.22188 9.87874L5.6361 11.293C3.68348 13.2456 3.68348 16.4114 5.6361 18.364C7.58872 20.3166 10.7545 20.3166 12.7072 18.364L13.0607 18.0105C15.0133 16.0578 15.0133 12.892 13.0607 10.9394L11.6465 9.52518L13.0607 8.11097ZM19.7782 14.1214L18.364 12.7072C20.3166 10.7545 20.3166 7.58872 18.364 5.6361C16.4114 3.68348 13.2456 3.68348 11.293 5.6361L10.9394 5.98965C8.98678 7.94227 8.98678 11.1081 10.9394 13.0607L12.3536 14.4749L10.9394 15.8891L9.52518 14.4749C6.79151 11.7413 6.79151 7.30911 9.52518 4.57544L9.87874 4.22188C12.6124 1.48821 17.0446 1.48821 19.7782 4.22188C22.5119 6.95555 22.5119 11.3877 19.7782 14.1214Z"/></svg><span class="share-label">Copy Link</span></button>
+        <a class="share-btn" href="https://twitter.com/intent/tweet?text=Support+the+NewsGuild+of+Greater+Philadelphia+%E2%80%94+sign+the+petition+for+a+fair+contract&url=https%3A%2F%2Fphillynewsguild.com%2F" target="_blank" rel="noopener noreferrer"><svg class="share-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10.4883 14.651L15.25 21H22.25L14.3917 10.5223L20.9308 3H18.2808L13.1643 8.88578L8.75 3H1.75L9.26086 13.0145L2.31915 21H4.96917L10.4883 14.651ZM16.25 19L5.75 5H7.75L18.25 19H16.25Z"/></svg><span class="share-label">Twitter / X</span></a>
+        <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fphillynewsguild.com%2F" target="_blank" rel="noopener noreferrer"><svg class="share-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13 9H17.5L17 11H13V20H11V11H7V9H11V7.12777C11 5.34473 11.1857 4.69816 11.5343 4.04631C11.8829 3.39446 12.3945 2.88288 13.0463 2.53427C13.6982 2.18565 14.3447 2 16.1278 2C16.6498 2 17.1072 2.05 17.5 2.15V4H16.1278C14.8041 4 14.401 4.07784 13.9895 4.29789C13.6862 4.46011 13.4601 4.68619 13.2979 4.98951C13.0778 5.40096 13 5.80407 13 7.12777V9Z"/></svg><span class="share-label">Facebook</span></a>
+        <a class="share-btn" href="https://bsky.app/intent/compose?text=Support+the+NewsGuild+of+Greater+Philadelphia+%E2%80%94+sign+the+petition+for+a+fair+contract+https%3A%2F%2Fphillynewsguild.com%2F" target="_blank" rel="noopener noreferrer"><svg class="share-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4.90727 3.43929C5.61594 3.56009 6.44016 3.94139 7.48302 4.68685C9.27977 5.97119 10.7687 7.73907 12 9.56361C13.2313 7.73907 14.7202 5.97119 16.517 4.68685C17.5598 3.94139 18.3841 3.56009 19.0927 3.43929C19.8605 3.3084 20.3825 3.50358 20.7082 3.63931C21.7166 4.05956 22 5.22508 22 6.21461C22 6.41649 21.9144 7.5166 21.8148 8.57508C21.7634 9.12088 21.7057 9.68306 21.6486 10.1515C21.5963 10.5804 21.5337 11.0321 21.4587 11.2849C21.1161 12.4395 20.3965 13.2618 19.508 13.8021C20.4453 14.5092 20.7854 15.6583 20.4359 16.7856C19.8393 18.71 17.6991 21.1833 15.6005 21.4037C13.8281 21.5898 12.6662 20.0794 12 18.6449C11.3338 20.0794 10.1719 21.5898 8.39954 21.4037C6.30095 21.1833 4.1607 18.71 3.56408 16.7856C3.21457 15.6583 3.55466 14.5092 4.49197 13.8021C3.60345 13.2618 2.88394 12.4395 2.54132 11.2849C2.46631 11.0321 2.40367 10.5804 2.35139 10.1515C2.29429 9.68306 2.23658 9.12088 2.18521 8.57508C2.08559 7.5166 2 6.41649 2 6.21461C2 5.22508 2.28343 4.05956 3.29182 3.63931C3.61753 3.50358 4.13949 3.3084 4.90727 3.43929ZM4.04911 6.91709C4.11331 7.73486 4.22889 9.02507 4.33669 9.90947C4.36927 10.1767 4.39214 10.4536 4.45863 10.7156C4.85637 12.056 6.38779 12.7978 8.14506 12.603C8.68686 12.5429 9.17695 12.9278 9.24697 13.4684C9.31698 14.009 8.94113 14.5061 8.40191 14.586C7.64608 14.6981 5.08656 14.9425 5.47438 16.1934C5.8312 17.3443 7.32212 19.2796 8.60842 19.4146C9.53606 19.5121 10.1084 18.0211 10.3741 17.3697C10.6489 16.6958 10.8622 15.9903 11.0417 15.3885C11.1681 14.9648 11.5578 14.6744 12 14.6744C12.4422 14.6744 12.8319 14.9648 12.9583 15.3885C13.1378 15.9903 13.3511 16.6958 13.6259 17.3697C13.8916 18.0211 14.4639 19.5121 15.3916 19.4146C16.6779 19.2796 18.1688 17.3443 18.5256 16.1934C18.9134 14.9425 16.3539 14.6981 15.5981 14.586C15.0589 14.5061 14.683 14.009 14.753 13.4684C14.8231 12.9278 15.3131 12.5429 15.8549 12.603C17.6122 12.7978 19.1436 12.0563 19.5413 10.7159C19.61 10.45 19.63 10.18 19.6633 9.90948C19.7711 9.02507 19.8867 7.73486 19.9509 6.91709C19.9876 6.44922 20.1985 5.27964 19.4288 5.41084C19.1429 5.45959 18.6059 5.65205 17.68 6.31391C15.7374 7.70252 13.9749 9.82666 12.891 11.954C12.7203 12.289 12.376 12.5 12 12.5C11.624 12.5 11.2797 12.289 11.109 11.954C10.0251 9.82666 8.26258 7.70252 6.31998 6.31391C5.39406 5.65205 4.85713 5.45959 4.57117 5.41084C3.7874 5.27724 4.01205 6.44504 4.04911 6.91709Z"/></svg><span class="share-label">Bluesky</span></a>
+        <a class="share-btn" href="mailto:?subject=The%20Inquirer%20staff%20needs%20your%20support&body=Hey%2C%0A%0AThe%20journalists%2C%20photographers%2C%20and%20staff%20at%20The%20Philadelphia%20Inquirer%20are%20fighting%20for%20a%20fair%20contract%20through%20the%20NewsGuild%20of%20Greater%20Philadelphia.%0A%0AThey%27ve%20been%20working%20without%20a%20new%20contract%20and%20need%20community%20support.%20Signing%20the%20petition%20takes%2030%20seconds%20and%20sends%20a%20clear%20message%20to%20management.%0A%0ASign%20here%3A%20https%3A%2F%2Fphillynewsguild.com%2F%0A%0AThanks%20for%20standing%20with%20local%20journalism."><svg class="share-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM20 7.23792L12.0718 14.338L4 7.21594V19H20V7.23792ZM4.51146 5L12.0619 11.662L19.501 5H4.51146Z"/></svg><span class="share-label">Email a Friend</span></a>
       </div>
     </div>
     <div>
       <div class="contact-box">
         <p class="contact-label">Get in touch</p>
         <p class="contact-body">Questions about the campaign, our contract fight, or want to get more involved with the NewsGuild of Greater Philadelphia?</p>
-        <p class="contact-email"><a id="contact-email-link" class="contact-email" style="color:var(--paper);text-decoration:underline;text-underline-offset:3px;"></a></p>
+        <p class="contact-email"><svg class="contact-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM20 7.23792L12.0718 14.338L4 7.21594V19H20V7.23792ZM4.51146 5L12.0619 11.662L19.501 5H4.51146Z"/></svg> <a id="contact-email-link" class="contact-email" style="color:var(--paper);text-decoration:underline;text-underline-offset:3px;"></a></p>
       </div>
     </div>
   </div>
 </section>
-
 
 <div id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title">
   <div class="privacy-modal-box">
@@ -1885,151 +331,34 @@ footer {
   </div>
 </div>
 
-
 <footer>
-  <div class="footer-main">
-    <span class="footer-item">© 2026 NewsGuild of Greater Philadelphia, Local 38010</span>
-    <button class="footer-item" onclick="openPrivacy()" style="background:none;border:none;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px;transition:color 0.15s;">Privacy</button>
-  </div>
-  <div class="footer-privacy">
-    This is a union organizing campaign. We collect petition signatures solely to support our contract campaign.<br>
-    We do not sell, share, or use your information for any commercial purpose. Petition data is managed by <a href="https://actionnetwork.org/privacy" target="_blank" rel="noopener">Action Network</a>.
+  <img class="footer-watermark" src="assets/logo.svg" alt="" aria-hidden="true">
+  <div class="footer-inner">
+    <div class="footer-lockup">
+      <img class="footer-emblem" src="assets/logo.svg" alt="NewsGuild of Greater Philadelphia emblem">
+      <div class="footer-id">
+        <p class="footer-org">NewsGuild of Greater Philadelphia</p>
+        <p class="footer-meta">CWA Local 38010 · Est. 1937</p>
+        <p class="footer-affil">An affiliate of The NewsGuild&ndash;CWA, AFL&ndash;CIO</p>
+        <p class="footer-solidarity">
+          <svg class="fist-ico" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+            <path d="M97.0384 46.5197V19.8962C97.0384 3.58944 78.1765 4.52278 74.9715 9.91448C72.6631 -2.84393 52.7029 -3.1056 49.1328 8.0728C43.2378 -1.75392 24.4259 0.384424 24.4259 16.8812C19.1508 9.60948 1.2473 9.51781 1.2473 25.6479C1.2473 25.6479 1.3823 31.8929 1.24396 33.9679C0.628955 43.2013 -1.22773 52.4781 1.2623 70.9848C2.37898 79.2882 5.91568 85.7166 11.7691 90.0866C22.1942 97.87 36.471 96.5666 39.3044 96.215C45.321 98.7056 51.7679 99.9916 58.2796 100C65.328 100 72.2381 98.4633 78.3432 95.4016C88.6466 90.2349 95.8217 81.1866 98.5468 69.9198C101.107 59.3448 100.085 52.0514 97.0384 46.5197ZM74.9698 13.6512C77.8515 8.99114 91.4867 6.67946 91.4867 22.4079V39.843C87.8716 36.313 76.3782 29.1846 74.9698 28.2896V13.6512ZM50.9462 14.6528C50.9462 0.821094 70.3348 1.96443 70.3348 16.7045V25.8729C66.3097 24.2996 63.123 25.1862 59.2996 26.2629C57.0046 26.9112 54.3546 27.6496 50.9462 28.0129V14.6528ZM27.1609 15.7978C27.1609 2.6411 45.7845 4.33444 45.7845 19.2295V28.2246C40.1144 27.3046 35.6477 30.9129 34.271 35.5463C33.613 37.8046 33.6229 40.2051 34.2993 42.458C30.4926 41.1047 27.1626 37.9413 27.1626 33.6363L27.1609 15.7978ZM3.96233 25.6029C3.96233 13.5128 22.8959 13.3795 22.8959 29.0813V41.7313C22.8959 53.2497 3.96233 55.3264 3.96233 41.8347V25.6029ZM87.0483 80.1132C73.8115 95.505 56.0213 95.6483 38.3627 90.77C38.3627 90.77 20.0808 94.94 10.6891 85.4432C3.74232 78.4182 1.46563 64.0631 3.09398 49.5597C5.62401 53.3847 10.3224 55.6347 14.4558 55.6347C18.2608 55.6347 21.7859 54.0797 24.3842 51.258C26.4393 49.0214 27.7959 46.078 28.4243 42.6197C30.5458 44.7012 33.3162 45.9934 36.2744 46.2814C39.4361 51.2797 46.1162 52.4864 49.1412 52.9947C42.8078 56.0797 37.301 62.6398 40.3327 73.8032C40.0977 56.0097 59.2546 51.4347 61.778 52.4997C64.7264 53.7464 68.3297 59.3798 69.1881 62.3314C69.5231 63.4798 69.6098 67.0915 69.6098 67.0915C69.6098 67.0915 70.6098 63.3465 70.4031 62.1014C69.7748 58.2848 64.6614 51.188 61.0613 49.7597C58.7246 48.833 52.5779 50.9697 51.0495 50.7297C36.941 48.528 35.3427 39.403 36.3177 36.1246C37.251 32.9896 40.8111 30.5179 43.3411 30.6746C51.2945 31.2029 55.8979 29.9313 59.8796 28.8079C64.4864 27.5062 67.3697 26.5279 71.8431 29.4813C73.8698 30.8196 91.1933 42.053 94.1767 48.2297C99.1084 58.4381 93.5867 72.5182 87.0483 80.1132Z" fill="#E11B22"/>
+          </svg>
+          In solidarity.
+        </p>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <div class="footer-legal-row">
+        <span>© 2026 NewsGuild of Greater Philadelphia, Local 38010</span>
+        <button class="footer-privacy-link" type="button" onclick="openPrivacy()">Privacy</button>
+      </div>
+      <p class="footer-privacy-note">This is a union organizing campaign. We collect petition signatures solely to support our contract campaign. We do not sell, share, or use your information for any commercial purpose. Petition data is managed by <a href="https://actionnetwork.org/privacy" target="_blank" rel="noopener">Action Network</a>.</p>
+    </div>
   </div>
 </footer>
 
-
-<div id="wf-toolbar">
-  <span id="wf-label">Wireframe v3</span>
-  <div id="wf-div"></div>
-  <button class="wf-btn active" id="btn-desktop" onclick="setView('desktop')">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="14" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M5 14h6M8 12v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-    Desktop
-  </button>
-  <button class="wf-btn" id="btn-tablet" onclick="setView('tablet')">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2.5" y="1" width="11" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="12.5" r="0.8" fill="currentColor"/></svg>
-    Tablet
-  </button>
-  <button class="wf-btn" id="btn-mobile" onclick="setView('mobile')">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="4" y="1" width="8" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="12.5" r="0.8" fill="currentColor"/></svg>
-    Mobile
-  </button>
-</div>
-
-<div id="vp-shell">
-  <div id="vp-wrap">
-    <div id="vp-lbl"></div>
-    <div id="vp-notch"></div>
-    <iframe id="vp-frame" title="preview"></iframe>
-  </div>
-</div>
-
-<script>
-  // Hide toolbar if running inside the preview iframe
-  try {
-    if (window.self !== window.top || window.frameElement) {
-      var t = document.getElementById('wf-toolbar');
-      if (t) t.style.setProperty('display', 'none', 'important');
-    }
-  } catch(e) {
-    var t = document.getElementById('wf-toolbar');
-    if (t) t.style.setProperty('display', 'none', 'important');
-  }
-
-  var _view = 'desktop';
-  var _ready = false;
-  var shell = document.getElementById('vp-shell');
-  var wrap  = document.getElementById('vp-wrap');
-  var frame = document.getElementById('vp-frame');
-  var notch = document.getElementById('vp-notch');
-  var lbl   = document.getElementById('vp-lbl');
-
-  function loadFrame() {
-    if (_ready) return;
-    _ready = true;
-    try {
-      var html = document.documentElement.outerHTML;
-      // Strip toolbar block
-      var tbStart = html.indexOf('<div id="wf-toolbar">');
-      var tbClose = html.indexOf('<div id="vp-shell">');
-      if (tbStart > -1 && tbClose > -1) html = html.slice(0, tbStart) + html.slice(tbClose);
-      // Strip vp-shell block
-      var ovStart = html.indexOf('<div id="vp-shell">');
-      var ovEnd   = html.indexOf('</div>', html.indexOf('</div>', html.indexOf('</div>', html.indexOf('</div>', ovStart) + 1) + 1) + 1) + 6;
-      if (ovStart > -1) html = html.slice(0, ovStart) + html.slice(ovEnd);
-      // Strip all script tags — use RegExp constructor to avoid literal <script in source
-      var scriptRe = new RegExp('<scr' + 'ipt[\\s\\S]*?<\\/sc' + 'ript>', 'gi');
-      html = html.replace(scriptRe, '');
-      // Use srcdoc (works from file:// origin; blob: is blocked in modern browsers
-      // when the parent is file://, which caused the tablet/mobile preview to stay blank)
-      frame.setAttribute('srcdoc', '<!doctype html>' + html);
-    } catch (err) {
-      console.error('Preview failed to build:', err);
-      frame.setAttribute('srcdoc', '<!doctype html><p style="font-family:sans-serif;padding:24px;">Preview failed to load. Open DevTools for details.</p>');
-    }
-  }
-
-  function setView(view) {
-    _view = view;
-    var btns = document.querySelectorAll('.wf-btn');
-    for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
-    document.getElementById('btn-' + view).classList.add('active');
-    if (view === 'desktop') {
-      shell.classList.remove('on');
-      document.body.style.overflow = '';
-      return;
-    }
-    loadFrame();
-    shell.classList.add('on');
-    document.body.style.overflow = 'hidden';
-    var avH = window.innerHeight - 68 - 48;
-    var avW = window.innerWidth - 32;
-    if (view === 'tablet') {
-      wrap.style.width  = Math.min(768, avW) + 'px';
-      wrap.style.height = Math.min(1024, avH) + 'px';
-      notch.classList.remove('on');
-      lbl.textContent = '768 x 1024';
-    } else {
-      wrap.style.width  = Math.min(375, avW) + 'px';
-      wrap.style.height = Math.min(812, avH) + 'px';
-      notch.classList.add('on');
-      lbl.textContent = '375 x 812';
-    }
-  }
-
-  window.addEventListener('resize', function() {
-    if (_view !== 'desktop') setView(_view);
-  });
-
-
-  // Assemble contact email client-side to prevent scraping
-  (function() {
-    var u = 'newsguild';
-    var d = 'philainquirer' + '.' + 'com';
-    var addr = u + '@' + d;
-    var el = document.getElementById('contact-email-link');
-    if (el) { el.href = 'mailto:' + addr; el.textContent = addr; }
-    var pel = document.getElementById('privacy-contact-link');
-    if (pel) { pel.href = 'mailto:' + addr; pel.textContent = addr; pel.style.display = ''; }
-    var prel = document.getElementById('press-email-link');
-    if (prel) { prel.href = 'mailto:' + addr + '?subject=Press%20Inquiry%20%E2%80%94%20Interview%20Request'; }
-  })();
-
-  // Privacy modal
-  function openPrivacy() {
-    document.getElementById('privacy-modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closePrivacy() {
-    document.getElementById('privacy-modal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.getElementById('privacy-modal').addEventListener('click', function(e) {
-    if (e.target === this) closePrivacy();
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closePrivacy();
-  });
-</script>
+<script src="js/app.js" defer></script>
 
 </body>
 </html>

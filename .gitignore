@@ -1,0 +1,11 @@
+# Dev-only viewport preview — never deploy
+preview.html
+
+# Internal process docs — local only, not for the public repo
+EXECUTION-PLAN.md
+HANDOFF.md
+SONNET-PUSH-STEPS.md
+COUNTER-UPDATE-GUIDE.md
+
+# OS junk
+.DS_Store
