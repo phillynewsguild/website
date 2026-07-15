@@ -1589,6 +1589,14 @@ footer {
 }
 .fist-ico { width: 20px; height: 20px; color: var(--red); flex-shrink: 0; }   /* square viewBox now (100x100) — was 18x21 for the old non-square glyph */
 
+.footer-social { display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; }
+.footer-social-link, .footer-social-link:link, .footer-social-link:visited {
+  color: rgba(255,255,255,0.7); display: inline-flex; align-items: center; justify-content: center;
+  text-decoration: none;
+}
+.footer-social-link:hover, .footer-social-link:focus-visible { color: var(--paper); }
+.social-ico { width: 20px; height: 20px; }
+
 .footer-legal { max-width: 440px; }
 .footer-legal-row {
   display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
