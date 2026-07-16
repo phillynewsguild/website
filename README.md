@@ -79,6 +79,17 @@ is important enough that previously-dismissed visitors should see it again, you'
 the localStorage key name in `js/app.js` (e.g. `ng-notice-dismissed-v2`) so it resets for
 everyone.
 
+## Petition thank-you page styling
+
+The Action Network petition embed (`#petition` in `index.html`) injects its own markup after
+signup, including the post-signature confirmation view — scoped by AN's own documented container
+ID, `#can_thank_you`. AN doesn't publish stable class names for the individual sharing fields
+(Direct Link / Email a Friend / Embed This Petition), so the corresponding block in
+`css/styles.css` (just after `#logo_wrap`) targets that view by element type (heading level,
+`input`, `textarea`) instead of guessed classes. Because that markup only renders client-side
+after a real signature, verify any change there by signing the petition once after deploying —
+don't rely on `preview.html`, which can't reproduce it.
+
 ## Brand / design system
 
 Everything derives from `css/styles.css`'s `:root` block: 5 colors (ink, paper, bone, red, muted)
