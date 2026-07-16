@@ -1088,13 +1088,17 @@ section {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-/* Custom "thank you page text" block (#action_thank_you_text, AN's own
-   wrapper id — verified against live markup 2026-07-16). More specific than
-   the generic #can_thank_you p rule above, so it overrides that tighter
-   line-height without touching the sub-headline paragraph. Matches the
-   site's standard body line-height (see body, .t-body). */
-#can_thank_you #action_thank_you_text p {
-  line-height: 1.6;
+/* Custom "thank you page text" block (#action_thank_you_text — AN's own
+   page-unique wrapper id, verified against live in-page markup). Targeted by
+   id directly, NOT scoped under #can_thank_you: in the embedded widget the
+   confirmation is injected into #can-petition-area-…, so a #can_thank_you
+   ancestor selector matched nothing (that was the original bug). Only the
+   #action_thank_you_text paragraph is affected, so the sub-headline above it
+   keeps its tighter line-height. !important so it also wins over Action
+   Network's own style=full stylesheet, which is injected into the page and
+   could otherwise override on load-order. Matches the site body line-height. */
+#action_thank_you_text p {
+  line-height: 1.6 !important;
 }
 #can_thank_you input[type="text"],
 #can_thank_you input[readonly],
@@ -1125,14 +1129,16 @@ section {
 
 /* Hide the "Options +/-" embed-customization panel on the thank-you page —
    the size/style/layout picker for visitors who want to re-embed this
-   petition elsewhere. Not something we want surfaced here. Verified against
-   live markup 2026-07-16: #embed_options is the content panel; the toggle
-   link's id alternates between embed_toggle-open and embed_toggle-close
-   depending on state, so [id^="embed_toggle-"] catches both regardless of
-   which is currently showing. !important overrides AN's inline
+   petition elsewhere. Not something we want surfaced here. Targeted by id
+   directly, NOT scoped under #can_thank_you: those ancestor selectors matched
+   nothing in the embedded widget (the original bug). #embed_options is the
+   content panel; the toggle link's id alternates between embed_toggle-open and
+   embed_toggle-close depending on state, so [id^="embed_toggle-"] catches both
+   regardless of which is showing. These ids are page-unique to the AN embed,
+   so no ancestor is needed. !important overrides AN's inline
    style="display:block/none" on the toggle links. */
-#can_thank_you #embed_options,
-#can_thank_you [id^="embed_toggle-"] {
+#embed_options,
+[id^="embed_toggle-"] {
   display: none !important;
 }
 
