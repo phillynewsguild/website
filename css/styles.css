@@ -1045,6 +1045,76 @@ section {
 #action_info a { color: var(--ink); }
 #logo_wrap { display: none; }   /* AN logo hidden per Beth, 2026-07-13 */
 
+/* ── Action Network petition embed — THANK YOU page (post-signature view).
+      #can_thank_you is AN's own documented container ID for this state
+      (per their CSS-customization docs). AN doesn't publish stable class
+      names for the individual sharing fields (Direct Link / Email a Friend /
+      Embed This Petition) — that markup only exists client-side after a real
+      signature is submitted. These rules target by element type (heading
+      level, input, textarea) instead of guessed classes, so they hold up
+      regardless of AN's internal markup. Verified 2026-07-16 against a
+      reconstructed mockup, not the live post-submit DOM — sign the petition
+      once after deploying to confirm on the real page. ── */
+#can_thank_you {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  padding: 0;
+}
+#can_thank_you h1,
+#can_thank_you h2 {
+  font-family: var(--font-display);
+  line-height: 1;
+  margin: 0 0 12px;
+  color: var(--ink);
+}
+#can_thank_you h3,
+#can_thank_you h4,
+#can_thank_you p {
+  line-height: calc(1em + 2px);
+  margin: 0 0 12px;
+}
+#can_thank_you h3,
+#can_thank_you h4 {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--ink);
+  margin-top: 28px;
+}
+#can_thank_you a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+#can_thank_you input[type="text"],
+#can_thank_you input[readonly],
+#can_thank_you textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--bone);
+  margin: 0 0 20px;
+  resize: vertical;
+}
+#can_thank_you input[type="text"]:focus,
+#can_thank_you textarea:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(225,27,34,0.16);
+}
+#can_thank_you > * + * {
+  margin-top: 4px;
+}
+
 /* ─────────────────────────────────
    UPDATES — white band
 ───────────────────────────────── */
