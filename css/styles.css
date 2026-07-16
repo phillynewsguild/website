@@ -1115,6 +1115,19 @@ section {
   margin-top: 4px;
 }
 
+/* Hide the "Options +/-" embed-customization panel on the thank-you page —
+   the size/style/layout picker for visitors who want to re-embed this
+   petition elsewhere. Not something we want surfaced here. Verified against
+   live markup 2026-07-16: #embed_options is the content panel; the toggle
+   link's id alternates between embed_toggle-open and embed_toggle-close
+   depending on state, so [id^="embed_toggle-"] catches both regardless of
+   which is currently showing. !important overrides AN's inline
+   style="display:block/none" on the toggle links. */
+#can_thank_you #embed_options,
+#can_thank_you [id^="embed_toggle-"] {
+  display: none !important;
+}
+
 /* ─────────────────────────────────
    UPDATES — white band
 ───────────────────────────────── */
