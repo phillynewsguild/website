@@ -1088,6 +1088,14 @@ section {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+/* Custom "thank you page text" block (#action_thank_you_text, AN's own
+   wrapper id — verified against live markup 2026-07-16). More specific than
+   the generic #can_thank_you p rule above, so it overrides that tighter
+   line-height without touching the sub-headline paragraph. Matches the
+   site's standard body line-height (see body, .t-body). */
+#can_thank_you #action_thank_you_text p {
+  line-height: 1.6;
+}
 #can_thank_you input[type="text"],
 #can_thank_you input[readonly],
 #can_thank_you textarea {
