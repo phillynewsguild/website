@@ -4,6 +4,7 @@ Campaign site for the NewsGuild of Greater Philadelphia (CWA Local 38010), suppo
 union's contract campaign at The Philadelphia Inquirer. Static HTML/CSS/JS, hosted on GitHub
 Pages at the custom domain **phillynewsguild.com**.
 
+
 ## Stack & structure
 
 No build step, no framework, no package manager. Everything is hand-written and deploys as-is.
