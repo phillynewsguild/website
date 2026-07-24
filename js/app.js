@@ -84,7 +84,7 @@ function dismissNotice() {
 // text, the counter, and the progress bar all sync from these two lines.
 // No live count: the Action Network API is partner-only — DECIDED 2026-07-13.
 var SIGNATURE_COUNT = 504;
-var SIGNATURE_GOAL = 600;
+var SIGNATURE_GOAL = 800;
 
 // Sync every dependent element to the numbers above. Runs immediately (not
 // just on scroll) so the fallback for reduced-motion / no-JS-observer users
